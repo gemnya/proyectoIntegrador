@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:request type="XML">
-        <con2:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="InputParameters" xmlns:con2="http://www.bea.com/wli/sb/typesystem/config"/>
+        <con3:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="InputParameters" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config"/>
       </con:request>
       <con:response type="XML">
-        <con2:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="OutputParameters" xmlns:con2="http://www.bea.com/wli/sb/typesystem/config"/>
+        <con3:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="OutputParameters" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config"/>
       </con:response>
     </ser:binding>
     <ser:monitoring isEnabled="false">
@@ -43,7 +43,7 @@
             <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">get:InputParameters</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
-              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./get:InputParameters</con2:xpathText>
+              <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:InputParameters</con3:xpathText>
             </con1:location>
           </con1:validate>
           <con1:assign varName="bodycopy" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
@@ -67,7 +67,7 @@
             <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">get:OutputParameters</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
-              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./get:OutputParameters</con2:xpathText>
+              <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:OutputParameters</con3:xpathText>
             </con1:location>
           </con1:validate>
         </con:actions>
@@ -77,13 +77,22 @@
       <con:stage name="LoggingStage">
         <con:context/>
         <con:actions>
+          <con2:assign varName="varlog">
+            <con1:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7e6a</con1:id>
+            <con2:expr>
+              <con1:xqueryText>"Logeo de cliente"</con1:xqueryText>
+            </con2:expr>
+          </con2:assign>
           <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/publish/config">
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7f49</con2:id>
             <con1:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:outboundTransform>
-              <con2:transport-headers xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+              <con2:transport-headers>
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7eb0</con3:id>
                 <con2:header-set>outbound-request</con2:header-set>
+                <con2:header value="expression" name="reqvar">
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$varlog</con3:xqueryText>
+                </con2:header>
               </con2:transport-headers>
             </con1:outboundTransform>
           </con1:route>
