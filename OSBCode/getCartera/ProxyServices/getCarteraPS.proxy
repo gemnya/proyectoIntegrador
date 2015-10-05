@@ -136,7 +136,7 @@
               <con1:replace varName="body" contents-only="true">
                 <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7fcd</con2:id>
                 <con1:location>
-                  <con2:xpathText>.</con2:xpathText>
+                  <con2:xpathText>./getCarteraResponse</con2:xpathText>
                 </con1:location>
                 <con1:expr>
                   <con2:xqueryTransform>
