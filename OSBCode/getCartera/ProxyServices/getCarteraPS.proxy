@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:request type="XML">
-        <con3:schema ref="getCartera/Resources/XSD/getCarterasPorId" element="getCartera"/>
+        <con3:schema ref="getCartera/Resources/XSD/getCarterasPorId" element="getCarteraRequest"/>
       </con:request>
       <con:response type="XML">
-        <con3:schema ref="getCartera/Resources/XSD/getCarterasPorId" element="getCartera"/>
+        <con3:schema ref="getCartera/Resources/XSD/getCarterasPorId" element="getCarteraResponse"/>
       </con:response>
     </ser:binding>
     <ser:monitoring isEnabled="false">
@@ -37,8 +37,8 @@
         <con:actions>
           <con1:validate>
             <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f5b</con2:id>
-            <con1:schema ref="getCartera/Resources/XSD/getIdCliente_sp"/>
-            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">get:InputParameters</con1:schemaElement>
+            <con1:schema ref="getCartera/Resources/XSD/getCarterasPorId"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">getCarteraRequest</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
               <con2:xpathText>./*</con2:xpathText>
@@ -53,8 +53,8 @@
         <con:actions>
           <con1:validate>
             <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f42</con2:id>
-            <con1:schema ref="getCartera/Resources/XSD/getPolizaById_sp"/>
-            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">get:OutputParameters</con1:schemaElement>
+            <con1:schema ref="getCartera/Resources/XSD/getCarterasPorId"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">getCarteraResponse</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
               <con2:xpathText>./*</con2:xpathText>
@@ -65,41 +65,38 @@
     </con:pipeline>
     <con:pipeline type="request" name="Log_request"/>
     <con:pipeline type="response" name="Log_response"/>
-    <con:pipeline type="request" name="getId_request">
+    <con:pipeline type="request" name="getIdCliente_request">
       <con:stage name="stage1">
         <con:context/>
         <con:actions>
           <con1:wsCallout>
             <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f2e</con2:id>
-            <con1:service xsi:type="ref:BusinessServiceRef" ref="getIdCliente/BusinessService/getIdCliente_db" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-            <con1:operation>getIdCliente</con1:operation>
+            <con1:service xsi:type="ref:ProxyRef" ref="getIdCliente/ProxyServices/getIdClientePS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:request>
-              <con1:body>$varReq</con1:body>
+              <con1:payload>$varReq</con1:payload>
             </con1:request>
             <con1:response>
-              <con1:body>varRes</con1:body>
+              <con1:payload>varRes</con1:payload>
             </con1:response>
-            <con1:requestTransform/>
+            <con1:requestTransform>
+              <con1:assign varName="varReq">
+                <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7f80</con2:id>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/paraGetIdCliente"/>
+                    <con2:param name="getCarteraRequest1">
+                      <con2:path>$body/getCarteraRequest</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con1:assign>
+            </con1:requestTransform>
             <con1:responseTransform/>
           </con1:wsCallout>
         </con:actions>
       </con:stage>
     </con:pipeline>
-    <con:pipeline type="response" name="getId_response"/>
-    <con:pipeline type="request" name="AssignNumber_request">
-      <con:stage name="Assign">
-        <con:context/>
-        <con:actions>
-          <con1:assign varName="varReq">
-            <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f17</con2:id>
-            <con1:expr>
-              <con2:xqueryText>$body</con2:xqueryText>
-            </con1:expr>
-          </con1:assign>
-        </con:actions>
-      </con:stage>
-    </con:pipeline>
-    <con:pipeline type="response" name="AssignNumber_response"/>
+    <con:pipeline type="response" name="getIdCliente_response"/>
     <con:flow>
       <con:pipeline-node name="ValidationCartera">
         <con:request>ValidationCartera_request</con:request>
@@ -109,14 +106,36 @@
         <con:request>Log_request</con:request>
         <con:response>Log_response</con:response>
       </con:pipeline-node>
-      <con:pipeline-node name="AssignNumber">
-        <con:request>AssignNumber_request</con:request>
-        <con:response>AssignNumber_response</con:response>
+      <con:pipeline-node name="getIdCliente">
+        <con:request>getIdCliente_request</con:request>
+        <con:response>getIdCliente_response</con:response>
       </con:pipeline-node>
-      <con:pipeline-node name="getId">
-        <con:request>getId_request</con:request>
-        <con:response>getId_response</con:response>
-      </con:pipeline-node>
+      <con:route-node name="RouteNode1">
+        <con:context/>
+        <con:actions>
+          <con4:route>
+            <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7fcc</con2:id>
+            <con4:service ref="getPoliza/ProxyServices/getPolizaById_PS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con4:outboundTransform>
+              <con1:replace varName="body" contents-only="true">
+                <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7f7e</con2:id>
+                <con1:location>
+                  <con2:xpathText>./*</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/paraGetPolizaPorId"/>
+                    <con2:param name="outputParameters1">
+                      <con2:path>$varRes</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con1:replace>
+            </con4:outboundTransform>
+            <con4:responseTransform/>
+          </con4:route>
+        </con:actions>
+      </con:route-node>
     </con:flow>
   </ser:router>
 </xml-fragment>
