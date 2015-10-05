@@ -21,7 +21,7 @@
     <tran:provider-id>http</tran:provider-id>
     <tran:inbound>true</tran:inbound>
     <tran:URI>
-      <env:value>/getCartera/ProxyService1</env:value>
+      <env:value>/getCartera/ProxyServices/getCarteraPS</env:value>
     </tran:URI>
     <tran:inbound-properties/>
     <tran:provider-specific>
