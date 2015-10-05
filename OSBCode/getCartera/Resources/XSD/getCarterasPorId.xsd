@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 rel. 3 (http://www.altova.com) by v920453 (Telecom) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="getCartera">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="getCarteraRequest">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="tipoDoc" type="xs:string"/>
+							<xs:element name="numero" type="xs:int"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="getCarteraResponse">
+					<xs:complexType>
+						<xs:sequence minOccurs="0">
+							<xs:element name="idPoliza" type="xs:int"/>
+							<xs:element name="prima" type="xs:decimal"/>
+							<xs:element name="premio" type="xs:decimal"/>
+							<xs:element name="idProductor" type="xs:int"/>
+							<xs:element name="idAutomovil" type="xs:int"/>
+							<xs:element name="idCliente" type="xs:int"/>
+							<xs:element name="idPlan" type="xs:int"/>
+							<xs:element name="fechaContratacion" type="xs:date"/>
+							<xs:element name="fechaValidez" type="xs:date"/>
+							<xs:element name="sumaAsegurada" type="xs:decimal"/>
+							<xs:element name="estadoPoliza" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
