@@ -114,7 +114,7 @@
 </msj>]]></con1:xqueryText>
             </con2:expr>
           </con2:assign>
-          <con1:reply>
+          <con1:reply isError="true">
             <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7faf</con1:id>
           </con1:reply>
         </con3:actions>
