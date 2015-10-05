@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="abstract XML"/>
     <ser:monitoring isEnabled="false">
@@ -24,9 +24,75 @@
       <env:value>/getCartera/ProxyServices/getCarteraPS</env:value>
     </tran:URI>
     <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
     <tran:provider-specific>
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router/>
+  <ser:router>
+    <con:pipeline type="request" name="ValidationCartera_request">
+      <con:stage name="ValIn">
+        <con:context/>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f5b</con2:id>
+            <con1:schema ref="getCartera/Resources/XSD/getIdCliente_sp"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">get:InputParameters</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>./*</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="ValidationCartera_response">
+      <con:stage name="ValOut">
+        <con:context/>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f42</con2:id>
+            <con1:schema ref="getCartera/Resources/XSD/getPolizaById_sp"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">get:OutputParameters</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>./*</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="Log_request"/>
+    <con:pipeline type="response" name="Log_response"/>
+    <con:pipeline type="request" name="getId_request">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:wsCallout>
+            <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f2e</con2:id>
+            <con1:service/>
+            <con1:request/>
+            <con1:response/>
+            <con1:requestTransform/>
+            <con1:responseTransform/>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="getId_response"/>
+    <con:flow>
+      <con:pipeline-node name="ValidationCartera">
+        <con:request>ValidationCartera_request</con:request>
+        <con:response>ValidationCartera_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="Log">
+        <con:request>Log_request</con:request>
+        <con:response>Log_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="getId">
+        <con:request>getId_request</con:request>
+        <con:response>getId_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
 </xml-fragment>
