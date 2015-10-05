@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="abstract XML"/>
     <ser:monitoring isEnabled="false">
@@ -24,9 +24,98 @@
       <env:value>/getIdCliente/ProxyServices/getIdCliente</env:value>
     </tran:URI>
     <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
     <tran:provider-specific>
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router/>
+  <ser:router>
+    <con:pipeline type="request" name="ValidationNode_request">
+      <con:stage name="ValidationIn">
+        <con:context/>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7f7a</con2:id>
+            <con1:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">get:InputParameters</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+          <con1:assign varName="bodycopy">
+            <con2:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7ef8</con2:id>
+            <con1:expr>
+              <con2:xqueryText>$body</con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="ValidationNode_response">
+      <con:stage name="ValidationOut">
+        <con:context/>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7f6b</con2:id>
+            <con1:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">get:OutputParameters</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="LoggingNode_request">
+      <con:stage name="LoggingStage">
+        <con:context/>
+        <con:actions>
+          <con3:route>
+            <con2:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7f49</con2:id>
+            <con3:service/>
+            <con3:outboundTransform/>
+          </con3:route>
+        </con:actions>
+      </con:stage>
+      <con:stage name="ReplaceStage">
+        <con:context/>
+        <con:actions>
+          <con1:replace contents-only="true" varName="body">
+            <con2:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7edb</con2:id>
+            <con1:location>
+              <con2:xpathText>./*</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText>$bodycopy</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="LoggingNode_response"/>
+    <con:flow>
+      <con:pipeline-node name="ValidationNode">
+        <con:request>ValidationNode_request</con:request>
+        <con:response>ValidationNode_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="LoggingNode">
+        <con:request>LoggingNode_request</con:request>
+        <con:response>LoggingNode_response</con:response>
+      </con:pipeline-node>
+      <con:route-node name="RouteTogetClientePS">
+        <con:context/>
+        <con:actions>
+          <con4:route>
+            <con2:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7f9c</con2:id>
+            <con4:service ref="getIdCliente/BusinessService/getIdCliente_db" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con4:operation>getIdCliente</con4:operation>
+            <con4:outboundTransform/>
+            <con4:responseTransform/>
+          </con4:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </ser:router>
 </xml-fragment>
