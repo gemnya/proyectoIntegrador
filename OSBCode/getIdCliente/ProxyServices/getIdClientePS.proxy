@@ -49,7 +49,7 @@
           <con1:assign varName="bodycopy" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7ef8</con2:id>
             <con1:expr>
-              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body</con2:xqueryText>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/get:InputParameters</con3:xqueryText>
             </con1:expr>
           </con1:assign>
         </con:actions>
@@ -75,7 +75,9 @@
     </con:pipeline>
     <con:pipeline type="request" name="LoggingNode_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:stage name="LoggingStage">
-        <con:context/>
+        <con:context>
+          <con1:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente" prefix="get"/>
+        </con:context>
         <con:actions>
           <con2:assign varName="varlog">
             <con1:id>_ActionId-6202881766699436474-72294c49.150382bcd67.-7e6a</con1:id>
@@ -87,13 +89,27 @@
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7f49</con2:id>
             <con1:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:outboundTransform>
-              <con2:transport-headers>
+              <con2:transport-headers copy-all="true">
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7eb0</con3:id>
                 <con2:header-set>outbound-request</con2:header-set>
                 <con2:header value="expression" name="reqvar">
                   <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$varlog</con3:xqueryText>
                 </con2:header>
               </con2:transport-headers>
+              <con2:replace varName="body" contents-only="true">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7deb</con3:id>
+                <con2:location>
+                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:InputParameters</con3:xpathText>
+                </con2:location>
+                <con2:expr>
+                  <con3:xqueryTransform xmlns:con3="http://www.bea.com/wli/sb/stages/config">
+                    <con3:resource ref="getIdCliente/Resources/XQUERY/loggerXQ"/>
+                    <con3:param name="anyType1">
+                      <con3:path>$body/get:InputParameters</con3:path>
+                    </con3:param>
+                  </con3:xqueryTransform>
+                </con2:expr>
+              </con2:replace>
             </con1:outboundTransform>
           </con1:route>
         </con:actions>
@@ -116,7 +132,17 @@
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7f9c</con2:id>
             <con1:service ref="getIdCliente/BusinessService/getIdCliente_db" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:operation>getIdCliente</con1:operation>
-            <con1:outboundTransform/>
+            <con1:outboundTransform>
+              <con2:replace varName="body" contents-only="true">
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7dd4</con3:id>
+                <con2:location>
+                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">.</con3:xpathText>
+                </con2:location>
+                <con2:expr>
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$bodycopy</con3:xqueryText>
+                </con2:expr>
+              </con2:replace>
+            </con1:outboundTransform>
             <con1:responseTransform/>
           </con1:route>
         </con:actions>
