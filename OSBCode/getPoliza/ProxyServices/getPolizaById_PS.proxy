@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/publish/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:wsdl ref="getPoliza/Resources/WSDL/getPolizaById_db"/>
@@ -40,74 +40,67 @@
     </tran:provider-specific>
   </ser:endpointConfig>
   <ser:router>
-    <con:pipeline type="request" name="Validate_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con:pipeline type="request" name="Validate_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="ValidateIn">
+        <con:context>
+          <con3:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get" xmlns:con3="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
+        <con:actions>
+          <con1:validate>
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7e2a</con3:id>
+            <con1:schema ref="getPoliza/Resources/XSD/getPolizaById_sp"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">get:InputParameters</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:InputParameters</con3:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
     <con:pipeline type="response" name="Validate_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:stage name="ValidateOut">
         <con:context>
-          <con2:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get" xmlns:con2="http://www.bea.com/wli/sb/stages/config"/>
+          <con3:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get" xmlns:con3="http://www.bea.com/wli/sb/stages/config"/>
         </con:context>
         <con:actions>
-          <con1:validate xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+          <con1:validate>
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7f38</con2:id>
             <con1:schema ref="getPoliza/Resources/XSD/getPolizaById_sp"/>
             <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">get:OutputParameters</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
-              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./get:OutputParameters</con2:xpathText>
+              <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:OutputParameters</con3:xpathText>
             </con1:location>
           </con1:validate>
         </con:actions>
       </con:stage>
     </con:pipeline>
     <con:pipeline type="request" name="PipelinePairNode2_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
-      <con:stage name="CalloutTo_getIdClientePS">
+      <con:stage name="LoggerManager">
         <con:context>
-          <con2:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get" xmlns:con2="http://www.bea.com/wli/sb/stages/config"/>
+          <con3:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get" xmlns:con3="http://www.bea.com/wli/sb/stages/config"/>
         </con:context>
         <con:actions>
-          <con1:wsCallout xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
-            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7e87</con2:id>
-            <con1:service xsi:type="ref:ProxyRef" ref="getIdCliente/ProxyServices/getIdClientePS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-            <con1:request>
-              <con1:payload>$varReq</con1:payload>
-            </con1:request>
-            <con1:response>
-              <con1:payload>varResp</con1:payload>
-            </con1:response>
-            <con1:requestTransform>
-              <con1:assign varName="varReq">
-                <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7e2f</con2:id>
-                <con1:expr>
-                  <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">data($body/get:InputParameters/get:IDC)</con2:xqueryText>
-                </con1:expr>
-              </con1:assign>
-            </con1:requestTransform>
-            <con1:responseTransform/>
-          </con1:wsCallout>
-        </con:actions>
-      </con:stage>
-      <con:stage name="ValidateIn">
-        <con:context>
-          <con2:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get" xmlns:con2="http://www.bea.com/wli/sb/stages/config"/>
-        </con:context>
-        <con:actions>
-          <con1:log>
-            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7e3f</con2:id>
-            <con1:logLevel>debug</con1:logLevel>
+          <con1:assign varName="logvar">
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7dbd</con3:id>
             <con1:expr>
-              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$body/get:InputParameters</con2:xqueryText>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">"&lt;&lt; GetPolizaID LOG >>"</con3:xqueryText>
             </con1:expr>
-            <con1:message>&lt;&lt; GET POLIZA: Input Parameters LOG>></con1:message>
-          </con1:log>
-          <con1:validate xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
-            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7e60</con2:id>
-            <con1:schema ref="getPoliza/Resources/XSD/getPolizaById_sp"/>
-            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">get:InputParameters</con1:schemaElement>
-            <con1:varName>body</con1:varName>
-            <con1:location>
-              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./get:InputParameters</con2:xpathText>
-            </con1:location>
-          </con1:validate>
+          </con1:assign>
+          <con2:route>
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7e0b</con3:id>
+            <con2:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:outboundTransform>
+              <con1:transport-headers>
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7dd6</con3:id>
+                <con1:header-set>outbound-request</con1:header-set>
+                <con1:header name="reqvar" value="expression">
+                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$logvar</con3:xqueryText>
+                </con1:header>
+              </con1:transport-headers>
+            </con2:outboundTransform>
+          </con2:route>
         </con:actions>
       </con:stage>
     </con:pipeline>
