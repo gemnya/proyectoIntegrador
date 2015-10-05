@@ -116,6 +116,7 @@
           <con4:route>
             <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7fcc</con2:id>
             <con4:service ref="getPoliza/ProxyServices/getPolizaById_PS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con4:operation>getPolizaById</con4:operation>
             <con4:outboundTransform>
               <con1:replace varName="body" contents-only="true">
                 <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7f7e</con2:id>
