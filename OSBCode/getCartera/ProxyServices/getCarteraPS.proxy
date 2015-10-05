@@ -30,7 +30,7 @@
     <tran:inbound-properties/>
     <tran:all-headers>true</tran:all-headers>
   </ser:endpointConfig>
-  <ser:router>
+  <ser:router errorHandler="_onErrorHandler-7916558450474920689--da9f0f.150392f370b.-7d4d">
     <con:pipeline type="request" name="ValidationCartera_request">
       <con:stage name="ValIn">
         <con:context/>
@@ -155,6 +155,16 @@
       </con:stage>
     </con:pipeline>
     <con:pipeline type="response" name="getIdCliente_response"/>
+    <con:pipeline type="error" name="_onErrorHandler-7916558450474920689--da9f0f.150392f370b.-7d4d">
+      <con:stage name="errorH">
+        <con:context/>
+        <con:actions>
+          <con2:reply isError="true">
+            <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d3a</con2:id>
+          </con2:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
     <con:flow>
       <con:pipeline-node name="ValidationCartera">
         <con:request>ValidationCartera_request</con:request>
