@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:request type="XML">
@@ -63,8 +63,66 @@
         </con:actions>
       </con:stage>
     </con:pipeline>
-    <con:pipeline type="request" name="Log_request"/>
-    <con:pipeline type="response" name="Log_response"/>
+    <con:pipeline type="request" name="Log_request">
+      <con:stage name="LogIn">
+        <con:context/>
+        <con:actions>
+          <con5:route>
+            <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d97</con2:id>
+            <con5:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con5:outboundTransform>
+              <con1:replace contents-only="true" varName="body">
+                <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d75</con2:id>
+                <con1:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="LoggerManager/Resources/XQ/PasajeLOGXQ"/>
+                    <con2:param name="anyType1">
+                      <con2:path>$body</con2:path>
+                    </con2:param>
+                    <con2:param name="string1">
+                      <con2:path>"CARTERA LOG IN"</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con1:replace>
+            </con5:outboundTransform>
+          </con5:route>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Log_response">
+      <con:stage name="LogOut">
+        <con:context/>
+        <con:actions>
+          <con5:route>
+            <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d60</con2:id>
+            <con5:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con5:outboundTransform>
+              <con1:replace contents-only="true" varName="body">
+                <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d4e</con2:id>
+                <con1:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="LoggerManager/Resources/XQ/PasajeLOGXQ"/>
+                    <con2:param name="anyType1">
+                      <con2:path>$body</con2:path>
+                    </con2:param>
+                    <con2:param name="string1">
+                      <con2:path>"CARTERA LOG OUT"</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con1:replace>
+            </con5:outboundTransform>
+          </con5:route>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
     <con:pipeline type="request" name="getIdCliente_request">
       <con:stage name="getIdCliServiceCall">
         <con:context/>
@@ -110,7 +168,7 @@
         <con:request>getIdCliente_request</con:request>
         <con:response>getIdCliente_response</con:response>
       </con:pipeline-node>
-      <con:route-node name="RouteNode1">
+      <con:route-node name="RoutePoliza">
         <con:context/>
         <con:actions>
           <con4:route>
