@@ -10,19 +10,25 @@
 				</xs:element>
 				<xs:element name="getCarteraResponse">
 					<xs:complexType>
-						<xs:sequence minOccurs="0">
-							<xs:element name="idPoliza" type="xs:int"/>
-							<xs:element name="prima" type="xs:decimal"/>
-							<xs:element name="premio" type="xs:decimal"/>
-							<xs:element name="idProductor" type="xs:int"/>
-							<xs:element name="idAutomovil" type="xs:int"/>
-							<xs:element name="idCliente" type="xs:int"/>
-							<xs:element name="idPlan" type="xs:int"/>
-							<xs:element name="fechaContratacion" type="xs:date"/>
-							<xs:element name="fechaValidez" type="xs:date"/>
-							<xs:element name="sumaAsegurada" type="xs:decimal"/>
-							<xs:element name="estadoPoliza" type="xs:string"/>
-						</xs:sequence>
+					<xs:sequence minOccurs="0">
+						<xs:element name="listaPolizas">
+							<xs:complexType>
+								<xs:sequence minOccurs="0">
+									<xs:element name="idPoliza" type="xs:int"/>
+									<xs:element name="prima" type="xs:decimal"/>
+									<xs:element name="premio" type="xs:decimal"/>
+									<xs:element name="idProductor" type="xs:int"/>
+									<xs:element name="idAutomovil" type="xs:int"/>
+									<xs:element name="idCliente" type="xs:int"/>
+									<xs:element name="idPlan" type="xs:int"/>
+									<xs:element name="fechaContratacion" type="xs:date"/>
+									<xs:element name="fechaValidez" type="xs:date"/>
+									<xs:element name="sumaAsegurada" type="xs:decimal"/>
+									<xs:element name="estadoPoliza" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 			</xs:schema>
