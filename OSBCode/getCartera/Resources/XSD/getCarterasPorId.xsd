@@ -8,27 +8,33 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="getCarteraResponse">
+				<xs:element name="getCarteraResponse" >
 					<xs:complexType>
-					<xs:sequence minOccurs="0">
-						<xs:element name="listaPolizas">
-							<xs:complexType>
-								<xs:sequence minOccurs="0">
-									<xs:element name="idPoliza" type="xs:int"/>
-									<xs:element name="prima" type="xs:decimal"/>
-									<xs:element name="premio" type="xs:decimal"/>
-									<xs:element name="idProductor" type="xs:int"/>
-									<xs:element name="idAutomovil" type="xs:int"/>
-									<xs:element name="idCliente" type="xs:int"/>
-									<xs:element name="idPlan" type="xs:int"/>
-									<xs:element name="fechaContratacion" type="xs:dateTime"/>
-									<xs:element name="fechaValidez" type="xs:dateTime"/>
-									<xs:element name="sumaAsegurada" type="xs:decimal"/>
-									<xs:element name="estadoPoliza" type="xs:string"/>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-					</xs:complexType>
+					<xs:sequence>
+					<xs:element name="listaPolizas">
+						<xs:complexType>
+							<xs:sequence>	
+								<xs:element name="poliza" minOccurs="0" maxOccurs="unbounded">
+									<xs:complexType>
+									<xs:sequence>
+										<xs:element name="idPoliza" type="xs:int"/>
+										<xs:element name="prima" type="xs:decimal"/>
+										<xs:element name="premio" type="xs:decimal"/>
+										<xs:element name="idProductor" type="xs:int"/>
+										<xs:element name="idAutomovil" type="xs:int"/>
+										<xs:element name="idCliente" type="xs:int"/>
+										<xs:element name="idPlan" type="xs:int"/>
+										<xs:element name="fechaContratacion" type="xs:dateTime"/>
+										<xs:element name="fechaValidez" type="xs:dateTime"/>
+										<xs:element name="sumaAsegurada" type="xs:decimal"/>
+										<xs:element name="estadoPoliza" type="xs:string"/>
+									</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				</xs:complexType>
 				</xs:element>
-			</xs:schema>
+</xs:schema>
