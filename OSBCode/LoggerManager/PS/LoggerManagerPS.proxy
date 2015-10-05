@@ -57,7 +57,7 @@
             <con2:id>_ActionId-956089951486005953-6ac69e06.150383224d8.-7ed3</con2:id>
             <con4:logLevel>debug</con4:logLevel>
             <con4:expr>
-              <con2:xqueryText>data($inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name = 'reqvar']/@value)</con2:xqueryText>
+              <con2:xqueryText>$body/log:RequestLoggerManager/log:Message</con2:xqueryText>
             </con4:expr>
             <con4:message>&lt;&lt;LOGGER MESSAGE>></con4:message>
           </con4:log>

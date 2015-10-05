@@ -5,6 +5,7 @@ targetNamespace="http://www.globallogic.com.ar/LoggerManagerRequest" elementForm
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="LogContext" type="xsd:anyType" minOccurs="1"/>
+				<xsd:element name="Message" type="xsd:string" minOccurs="1"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
