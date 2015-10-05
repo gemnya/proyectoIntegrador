@@ -91,7 +91,7 @@
             <con1:outboundTransform>
               <con2:transport-headers copy-all="true">
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7eb0</con3:id>
-                <con2:header-set>outbound-request</con2:header-set>
+                <con2:header-set>inbound-response</con2:header-set>
                 <con2:header value="expression" name="reqvar">
                   <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$varlog</con3:xqueryText>
                 </con2:header>
@@ -99,13 +99,13 @@
               <con2:replace varName="body" contents-only="true">
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7deb</con3:id>
                 <con2:location>
-                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:InputParameters</con3:xpathText>
+                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./*</con3:xpathText>
                 </con2:location>
                 <con2:expr>
                   <con3:xqueryTransform xmlns:con3="http://www.bea.com/wli/sb/stages/config">
-                    <con3:resource ref="getIdCliente/Resources/XQUERY/loggerXQ"/>
-                    <con3:param name="anyType1">
-                      <con3:path>$body/get:InputParameters</con3:path>
+                    <con3:resource ref="getIdCliente/Resources/XQUERY/tranformacion"/>
+                    <con3:param name="inputParameters1">
+                      <con3:path>$body</con3:path>
                     </con3:param>
                   </con3:xqueryTransform>
                 </con2:expr>
