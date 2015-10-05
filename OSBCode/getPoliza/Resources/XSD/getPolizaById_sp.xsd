@@ -2,7 +2,7 @@
    <element name="InputParameters">
       <complexType>
          <sequence>
-            <element name="IDC" type="decimal" db:index="1" db:type="NUMBER" minOccurs="0" nillable="true"/>
+            <element name="IDC" type="int" db:index="1" db:type="NUMBER" minOccurs="0" nillable="true"/>
          </sequence>
       </complexType>
    </element>
@@ -18,13 +18,13 @@
          <element name="C_POLIZA_Row" minOccurs="0" maxOccurs="unbounded">
             <complexType>
                <sequence>
-                  <element name="ID_POLIZA" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
+                  <element name="ID_POLIZA" type="int" db:type="NUMBER" minOccurs="0" nillable="true"/>
                   <element name="PRIMA" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
                   <element name="PREMIO" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
-                  <element name="ID_PRODUCTOR" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
-                  <element name="ID_AUTOMOVIL" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
-                  <element name="ID_CLIENTE" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
-                  <element name="ID_PLAN" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
+                  <element name="ID_PRODUCTOR" type="int" db:type="NUMBER" minOccurs="0" nillable="true"/>
+                  <element name="ID_AUTOMOVIL" type="int" db:type="NUMBER" minOccurs="0" nillable="true"/>
+                  <element name="ID_CLIENTE" type="int" db:type="NUMBER" minOccurs="0" nillable="true"/>
+                  <element name="ID_PLAN" type="int" db:type="NUMBER" minOccurs="0" nillable="true"/>
                   <element name="FECHA_CONTRATACION" type="dateTime" db:type="DATE" minOccurs="0" nillable="true"/>
                   <element name="FECHA_VALIDEZ" type="dateTime" db:type="DATE" minOccurs="0" nillable="true"/>
                   <element name="SUMA_ASEGURADA" type="decimal" db:type="NUMBER" minOccurs="0" nillable="true"/>
