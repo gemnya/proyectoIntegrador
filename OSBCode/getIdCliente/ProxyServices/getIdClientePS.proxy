@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:request type="XML">
@@ -30,9 +30,9 @@
     <tran:inbound-properties/>
     <tran:all-headers>true</tran:all-headers>
   </ser:endpointConfig>
-  <ser:router>
+  <ser:router errorHandler="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7ff0">
     <con:pipeline type="request" name="ValidationNode_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
-      <con:stage name="ValidationIn">
+      <con:stage name="ValidationIn" errorHandler="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7f3b">
         <con:context>
           <con1:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente" prefix="get"/>
         </con:context>
@@ -50,7 +50,7 @@
       </con:stage>
     </con:pipeline>
     <con:pipeline type="response" name="ValidationNode_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
-      <con:stage name="ValidationOut">
+      <con:stage name="ValidationOut" errorHandler="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7f3a">
         <con:context>
           <con1:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente" prefix="get"/>
         </con:context>
@@ -67,7 +67,7 @@
         </con:actions>
       </con:stage>
     </con:pipeline>
-    <con:pipeline type="request" name="LoggingNode_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+    <con:pipeline type="request" name="LoggingNode_request" errorHandler="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7f39" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:stage name="LoggingStage">
         <con:context>
           <con1:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente" prefix="get"/>
@@ -100,6 +100,74 @@
       </con:stage>
     </con:pipeline>
     <con:pipeline type="response" name="LoggingNode_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con3:pipeline type="error" name="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7ff0">
+      <con3:stage name="stage1">
+        <con3:context/>
+        <con3:actions>
+          <con2:assign varName="ezer">
+            <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7f3c</con1:id>
+            <con2:expr>
+              <con1:xqueryText><![CDATA[<msj>
+	<error>{('|| ERROR CODE: ', $fault/*:errorCode)}</error>
+	<razonerror>$fault/*:reason</razonerror>
+	<salida>{$body}</salida>
+</msj>]]></con1:xqueryText>
+            </con2:expr>
+          </con2:assign>
+          <con1:reply>
+            <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7faf</con1:id>
+          </con1:reply>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
+    <con3:pipeline type="error" name="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7f3b">
+      <con3:stage name="stage1">
+        <con3:context/>
+        <con3:actions>
+          <con2:Error>
+            <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7ef6</con1:id>
+            <con2:errCode>EZE001</con2:errCode>
+            <con2:message>|| ERROR VALIDANDO ENTRADA ||</con2:message>
+          </con2:Error>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
+    <con3:pipeline type="error" name="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7f3a">
+      <con3:stage name="stage1">
+        <con3:context/>
+        <con3:actions>
+          <con2:Error>
+            <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7f12</con1:id>
+            <con2:errCode>ERROR002</con2:errCode>
+            <con2:message>|| ERROR VALIDACION SALIDA ||</con2:message>
+          </con2:Error>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
+    <con3:pipeline type="error" name="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7f39">
+      <con3:stage name="stage1">
+        <con3:context/>
+        <con3:actions>
+          <con2:Error>
+            <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7ed3</con1:id>
+            <con2:errCode>ERROR003</con2:errCode>
+            <con2:message>|| ERROR LOGEANDO ||</con2:message>
+          </con2:Error>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
+    <con3:pipeline type="error" name="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7ed2">
+      <con3:stage name="stage1">
+        <con3:context/>
+        <con3:actions>
+          <con2:Error>
+            <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7eb5</con1:id>
+            <con2:errCode>ERROR004</con2:errCode>
+            <con2:message>|| ERROR RUTEANDO ||</con2:message>
+          </con2:Error>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:pipeline-node name="ValidationNode">
         <con:request>ValidationNode_request</con:request>
@@ -109,14 +177,14 @@
         <con:request>LoggingNode_request</con:request>
         <con:response>LoggingNode_response</con:response>
       </con:pipeline-node>
-      <con:route-node name="RouteTogetClienteBusiness">
+      <con:route-node name="RouteTogetClienteBusiness" error-handler="_onErrorHandler-8721057426787227720-32f22db0.15039930221.-7ed2">
         <con:context/>
         <con:actions>
           <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7f9c</con2:id>
             <con1:service ref="getIdCliente/BusinessService/getIdCliente_db" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:operation>getIdCliente</con1:operation>
-            <con1:outboundTransform></con1:outboundTransform>
+            <con1:outboundTransform/>
             <con1:responseTransform/>
           </con1:route>
         </con:actions>
