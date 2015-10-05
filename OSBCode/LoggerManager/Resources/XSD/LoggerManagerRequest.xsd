@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.globallogic.com.ar/LoggerManagerRequest" 
+targetNamespace="http://www.globallogic.com.ar/LoggerManagerRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="RequestLoggerManager">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="VarLoggin" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="LogContext" type="xsd:anyType" minOccurs="1"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
