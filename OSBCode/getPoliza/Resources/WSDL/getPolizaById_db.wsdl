@@ -1,0 +1,20 @@
+<definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/getPolizaById" name="getPolizaById-concrete" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/getPolizaById" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/ProjectSOA/Project1/getPolizaById" location="getPolizaById.wsdl"/>
+  <binding name="getPolizaById_ptt-binding" type="tns:getPolizaById_ptt">
+    <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+    <operation name="getPolizaById">
+      <soap:operation soapAction="getPolizaById"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="getPolizaById-service">
+    <port name="getPolizaById-port" binding="tns:getPolizaById_ptt-binding">
+      <soap:address location="jca://eis/DB/Connection1"/>
+    </port>
+  </service>
+</definitions>
