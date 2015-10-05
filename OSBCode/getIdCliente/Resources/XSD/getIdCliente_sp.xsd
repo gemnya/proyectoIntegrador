@@ -3,7 +3,7 @@
       <complexType>
          <sequence>
             <element name="P_TIPODOC" type="string" db:index="1" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
-            <element name="P_NUMDOC" type="decimal" db:index="2" db:type="NUMBER" minOccurs="0" nillable="true"/>
+            <element name="P_NUMDOC" type="int" db:index="2" db:type="NUMBER" minOccurs="0" nillable="true"/>
          </sequence>
       </complexType>
    </element>
