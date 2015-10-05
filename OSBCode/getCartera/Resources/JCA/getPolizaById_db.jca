@@ -1,4 +1,4 @@
-<adapter-config name="getPolizaById" adapter="Database Adapter" wsdlLocation="getPolizaById.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+<adapter-config name="getPolizaById" adapter="Database Adapter" wsdlLocation="../WSDL/getPolizaById.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
   <connection-factory location="eis/DB/Connection1" UIConnectionName="Connection1" adapterRef=""/>
   <endpoint-interaction portType="getPolizaById_ptt" operation="getPolizaById">
