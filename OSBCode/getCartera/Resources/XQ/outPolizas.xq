@@ -10,7 +10,17 @@ declare function xf:outPolizas($outputParameters1 as element(ns0:OutputParameter
             {
                 let $C_POLIZA_Row := $outputParameters1/ns0:C_POLIZA/ns0:C_POLIZA_Row[1]
                 return
-                    <listaPolizas/>
+                    <listaPolizas>
+                        <idPoliza>{ data($C_POLIZA_Row/ns0:ID_POLIZA) }</idPoliza>
+                        <prima>{ data($C_POLIZA_Row/ns0:PRIMA) }</prima>
+                        <premio>{ data($C_POLIZA_Row/ns0:PREMIO) }</premio>
+                        <idProductor>{ data($C_POLIZA_Row/ns0:ID_PRODUCTOR) }</idProductor>
+                        <idAutomovil>{ data($C_POLIZA_Row/ns0:ID_AUTOMOVIL) }</idAutomovil>
+                        <idCliente>{ data($C_POLIZA_Row/ns0:ID_CLIENTE) }</idCliente>
+                        <idPlan>{ data($C_POLIZA_Row/ns0:ID_PLAN) }</idPlan>
+                        <sumaAsegurada>{ data($C_POLIZA_Row/ns0:SUMA_ASEGURADA) }</sumaAsegurada>
+                        <estadoPoliza>{ data($C_POLIZA_Row/ns0:ESTADO_POLIZA) }</estadoPoliza>
+                    </listaPolizas>
             }
         </getCarteraResponse>
 };
