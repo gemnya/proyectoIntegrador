@@ -57,7 +57,7 @@
             <con1:schemaElement>getCarteraResponse</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
-              <con2:xpathText>./*</con2:xpathText>
+              <con2:xpathText>./getCarteraResponse</con2:xpathText>
             </con1:location>
           </con1:validate>
         </con:actions>
