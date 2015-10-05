@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="abstract XML"/>
     <ser:monitoring isEnabled="false">
@@ -24,9 +24,67 @@
       <env:value>/getPoliza/ProxyServices/getPolizaById_PS</env:value>
     </tran:URI>
     <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
     <tran:provider-specific>
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router/>
+  <ser:router>
+    <con:pipeline type="request" name="Validate_request">
+      <con:stage name="ValidateIn">
+        <con:context/>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-9169231484009489756--3998c841.15038102edf.-7f5e</con2:id>
+            <con1:schema ref="getPoliza/Resources/XSD/getPolizaById_sp"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">get:InputParameters</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="Validate_response">
+      <con:stage name="ValidateOut">
+        <con:context/>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-9169231484009489756--3998c841.15038102edf.-7f38</con2:id>
+            <con1:schema ref="getPoliza/Resources/XSD/getPolizaById_sp"/>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById">get:OutputParameters</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="PipelinePairNode2_request"/>
+    <con:pipeline type="response" name="PipelinePairNode2_response"/>
+    <con:flow>
+      <con:pipeline-node name="Validate">
+        <con:request>Validate_request</con:request>
+        <con:response>Validate_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="PipelinePairNode2">
+        <con:request>PipelinePairNode2_request</con:request>
+        <con:response>PipelinePairNode2_response</con:response>
+      </con:pipeline-node>
+      <con:route-node name="RouteNode1">
+        <con:context/>
+        <con:actions>
+          <con3:route>
+            <con2:id>_ActionId-9169231484009489756--3998c841.15038102edf.-7f4c</con2:id>
+            <con3:service ref="getPoliza/BusinessService/getPolizaById_db_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con3:operation>getPolizaById</con3:operation>
+            <con3:outboundTransform/>
+            <con3:responseTransform/>
+          </con3:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </ser:router>
 </xml-fragment>
