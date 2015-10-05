@@ -79,7 +79,7 @@
         <con:actions>
           <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/publish/config">
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7f49</con2:id>
-            <con1:service/>
+            <con1:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:outboundTransform>
               <con2:transport-headers xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
                 <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7eb0</con3:id>
@@ -114,7 +114,7 @@
         <con:request>LoggingNode_request</con:request>
         <con:response>LoggingNode_response</con:response>
       </con:pipeline-node>
-      <con:route-node name="RouteTogetClientePS">
+      <con:route-node name="RouteTogetClienteBusiness">
         <con:context/>
         <con:actions>
           <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
