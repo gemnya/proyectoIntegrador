@@ -98,20 +98,6 @@
           </con1:route>
         </con:actions>
       </con:stage>
-      <con:stage name="ReplaceStage">
-        <con:context/>
-        <con:actions>
-          <con1:replace contents-only="true" varName="body" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
-            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7edb</con2:id>
-            <con1:location>
-              <con2:xpathText xmlns:con2="http://www.bea.com/wli/sb/stages/config">./*</con2:xpathText>
-            </con1:location>
-            <con1:expr>
-              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">$bodycopy</con2:xqueryText>
-            </con1:expr>
-          </con1:replace>
-        </con:actions>
-      </con:stage>
     </con:pipeline>
     <con:pipeline type="response" name="LoggingNode_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
