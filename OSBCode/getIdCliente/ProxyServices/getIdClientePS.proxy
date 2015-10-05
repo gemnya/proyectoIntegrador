@@ -96,8 +96,8 @@
                 </con2:location>
                 <con2:expr>
                   <con3:xqueryTransform xmlns:con3="http://www.bea.com/wli/sb/stages/config">
-                    <con3:resource ref="getIdCliente/Resources/XQUERY/transformacionAnyXQ"/>
-                    <con3:param name="todo">
+                    <con3:resource ref="LoggerManager/Resources/XQ/TransformXQ"/>
+                    <con3:param name="loggeo">
                       <con3:path>$body</con3:path>
                     </con3:param>
                   </con3:xqueryTransform>
