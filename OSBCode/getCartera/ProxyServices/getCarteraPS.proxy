@@ -66,7 +66,7 @@
     <con:pipeline type="request" name="Log_request"/>
     <con:pipeline type="response" name="Log_response"/>
     <con:pipeline type="request" name="getIdCliente_request">
-      <con:stage name="stage1">
+      <con:stage name="getIdCliServiceCall">
         <con:context/>
         <con:actions>
           <con1:wsCallout>
@@ -120,7 +120,7 @@
               <con1:replace varName="body" contents-only="true">
                 <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7f7e</con2:id>
                 <con1:location>
-                  <con2:xpathText>./*</con2:xpathText>
+                  <con2:xpathText>.</con2:xpathText>
                 </con1:location>
                 <con1:expr>
                   <con2:xqueryTransform>
