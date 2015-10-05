@@ -46,12 +46,6 @@
               <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:InputParameters</con3:xpathText>
             </con1:location>
           </con1:validate>
-          <con1:assign varName="bodycopy" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
-            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7ef8</con2:id>
-            <con1:expr>
-              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/get:InputParameters</con3:xqueryText>
-            </con1:expr>
-          </con1:assign>
         </con:actions>
       </con:stage>
     </con:pipeline>
@@ -122,17 +116,7 @@
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7f9c</con2:id>
             <con1:service ref="getIdCliente/BusinessService/getIdCliente_db" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:operation>getIdCliente</con1:operation>
-            <con1:outboundTransform>
-              <con2:replace varName="body" contents-only="true">
-                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-6202881766699436474-72294c49.150382bcd67.-7dd4</con3:id>
-                <con2:location>
-                  <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">.</con3:xpathText>
-                </con2:location>
-                <con2:expr>
-                  <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$bodycopy</con3:xqueryText>
-                </con2:expr>
-              </con2:replace>
-            </con1:outboundTransform>
+            <con1:outboundTransform></con1:outboundTransform>
             <con1:responseTransform/>
           </con1:route>
         </con:actions>
