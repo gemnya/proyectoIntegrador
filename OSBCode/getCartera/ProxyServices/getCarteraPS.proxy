@@ -132,7 +132,22 @@
                 </con1:expr>
               </con1:replace>
             </con4:outboundTransform>
-            <con4:responseTransform/>
+            <con4:responseTransform>
+              <con1:replace varName="body" contents-only="true">
+                <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7fcd</con2:id>
+                <con1:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/outPolizas"/>
+                    <con2:param name="outputParameters1">
+                      <con2:path>$body/getCarteraResponse</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con1:replace>
+            </con4:responseTransform>
           </con4:route>
         </con:actions>
       </con:route-node>
