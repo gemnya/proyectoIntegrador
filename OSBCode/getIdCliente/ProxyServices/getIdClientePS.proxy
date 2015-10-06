@@ -104,38 +104,27 @@
       <con3:stage name="ErrorGetIdCliente">
         <con3:context/>
         <con3:actions>
-          <con2:ifThenElse>
-            <con1:id>_ActionId-5995637802062522937-3fb68d5d.1503e6c1398.-7de0</con1:id>
-            <con2:case>
-              <con2:condition>
-                <con1:xqueryText>$fault/ctx:errorCode > 0</con1:xqueryText>
-              </con2:condition>
-              <con2:actions>
-                <con2:assign varName="ezer">
-                  <con1:id>_ActionId-5995637802062522937-3fb68d5d.1503e6c1398.-7dde</con1:id>
-                  <con2:expr>
-                    <con1:xqueryText><![CDATA[<msj>
+          <con2:assign varName="ezer">
+            <con1:id>_ActionId-640743524539177688-47141ee7.1503e8c051c.-7fff</con1:id>
+            <con2:expr>
+              <con1:xqueryText><![CDATA[<msj>
 	<error>{concat('|| ERROR CODIGO: ', data($fault/*:errorCode)) }</error>
 	<razonerror>{data($fault/*:reason)}</razonerror>
 	<cuerpo>{$body}</cuerpo>
 </msj>]]></con1:xqueryText>
-                  </con2:expr>
-                </con2:assign>
-                <con4:log>
-                  <con1:id>_ActionId-5995637802062522937-3fb68d5d.1503e6c1398.-7ddc</con1:id>
-                  <con4:logLevel>debug</con4:logLevel>
-                  <con4:expr>
-                    <con1:xqueryText>$ezer</con1:xqueryText>
-                  </con4:expr>
-                  <con4:message>&lt;&lt; ERROR EZE >></con4:message>
-                </con4:log>
-                <con1:reply isError="true">
-                  <con1:id>_ActionId-5995637802062522937-3fb68d5d.1503e6c1398.-7dda</con1:id>
-                </con1:reply>
-              </con2:actions>
-            </con2:case>
-            <con2:default/>
-          </con2:ifThenElse>
+            </con2:expr>
+          </con2:assign>
+          <con4:log>
+            <con1:id>_ActionId-640743524539177688-47141ee7.1503e8c051c.-7ffd</con1:id>
+            <con4:logLevel>debug</con4:logLevel>
+            <con4:expr>
+              <con1:xqueryText>$ezer</con1:xqueryText>
+            </con4:expr>
+            <con4:message>&lt;&lt; ERROR EZE >></con4:message>
+          </con4:log>
+          <con1:reply isError="true">
+            <con1:id>_ActionId-640743524539177688-47141ee7.1503e8c051c.-7ffb</con1:id>
+          </con1:reply>
         </con3:actions>
       </con3:stage>
     </con3:pipeline>
