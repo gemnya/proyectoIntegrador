@@ -38,7 +38,7 @@
           <con1:validate>
             <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f5b</con2:id>
             <con1:schema ref="getCartera/Resources/XSD/getCarterasPorId"/>
-            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente">getCarteraRequest</con1:schemaElement>
+            <con1:schemaElement xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getIdCliente" xmlns:get1="http://www.globallogic.com.ar/getCartera">get1:getCarteraRequest</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
               <con2:xpathText>./*</con2:xpathText>
@@ -54,7 +54,7 @@
           <con1:validate>
             <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7fed</con2:id>
             <con1:schema ref="getCartera/Resources/XSD/getCarterasPorId"/>
-            <con1:schemaElement>getCarteraResponse</con1:schemaElement>
+            <con1:schemaElement xmlns:get="http://www.globallogic.com.ar/getCartera">get:getCarteraResponse</con1:schemaElement>
             <con1:varName>body</con1:varName>
             <con1:location>
               <con2:xpathText>./*</con2:xpathText>
