@@ -7,28 +7,28 @@ declare namespace ns1 = "http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaB
 declare namespace ns0 = "http://www.globallogic.com.ar/getCartera";
 
 declare function xf:outPolizasII($outputParameters1 as element(ns1:OutputParameters))
-    as element(getCarteraResponse) {
-        <getCarteraResponse>
-            <listaPolizas>
+    as element(ns0:getCarteraResponse) {
+        <ns0:getCarteraResponse>
+            <ns0:listaPolizas>
                 {
                     for $poliza in $outputParameters1/ns1:C_POLIZA/ns1:C_POLIZA_Row
                     return
-                        <poliza>
-                            <idPoliza>{ data($poliza/ns1:ID_POLIZA) }</idPoliza>
-                            <prima>{ data($poliza/ns1:PRIMA) }</prima>
-                            <premio>{ data($poliza/ns1:PREMIO) }</premio>
-                            <idProductor>{ data($poliza/ns1:ID_PRODUCTOR) }</idProductor>
-                            <idAutomovil>{ data($poliza/ns1:ID_AUTOMOVIL) }</idAutomovil>
-                            <idCliente>{ data($poliza/ns1:ID_CLIENTE) }</idCliente>
-                            <idPlan>{ data($poliza/ns1:ID_PLAN) }</idPlan>
-                            <fechaContratacion>{ data($poliza/ns1:FECHA_CONTRATACION) }</fechaContratacion>
-                            <fechaValidez>{ data($poliza/ns1:FECHA_VALIDEZ) }</fechaValidez>
-                            <sumaAsegurada>{ data($poliza/ns1:SUMA_ASEGURADA) }</sumaAsegurada>
-                            <estadoPoliza>{ data($poliza/ns1:ESTADO_POLIZA) }</estadoPoliza>
-                        </poliza>
+                        <ns0:poliza>
+                            <ns0:idPoliza>{ data($poliza/ns1:ID_POLIZA) }</ns0:idPoliza>
+                            <ns0:prima>{ data($poliza/ns1:PRIMA) }</ns0:prima>
+                            <ns0:premio>{ data($poliza/ns1:PREMIO) }</ns0:premio>
+                            <ns0:idProductor>{ data($poliza/ns1:ID_PRODUCTOR) }</ns0:idProductor>
+                            <ns0:idAutomovil>{ data($poliza/ns1:ID_AUTOMOVIL) }</ns0:idAutomovil>
+                            <ns0:idCliente>{ data($poliza/ns1:ID_CLIENTE) }</ns0:idCliente>
+                            <ns0:idPlan>{ data($poliza/ns1:ID_PLAN) }</ns0:idPlan>
+                            <ns0:fechaContratacion>{ data($poliza/ns1:FECHA_CONTRATACION) }</ns0:fechaContratacion>
+                            <ns0:fechaValidez>{ data($poliza/ns1:FECHA_VALIDEZ) }</ns0:fechaValidez>
+                            <ns0:sumaAsegurada>{ data($poliza/ns1:SUMA_ASEGURADA) }</ns0:sumaAsegurada>
+                            <ns0:estadoPoliza>{ data($poliza/ns1:ESTADO_POLIZA) }</ns0:estadoPoliza>
+                        </ns0:poliza>
                 }
-            </listaPolizas>
-        </getCarteraResponse>
+            </ns0:listaPolizas>
+        </ns0:getCarteraResponse>
 };
 
 declare variable $outputParameters1 as element(ns1:OutputParameters) external;

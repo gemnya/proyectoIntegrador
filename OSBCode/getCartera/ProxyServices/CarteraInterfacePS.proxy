@@ -143,13 +143,25 @@
         <con:response>LogInterfaceCartera_response</con:response>
       </con:pipeline-node>
       <con:route-node name="RouteGetCartera">
-        <con:context/>
+        <con:context>
+          <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCartera" prefix="get"/>
+        </con:context>
         <con:actions>
           <con1:route>
             <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7dc4</con2:id>
             <con1:service ref="getCartera/ProxyServices/getCarteraPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:outboundTransform/>
-            <con1:responseTransform/>
+            <con1:responseTransform>
+              <con3:replace contents-only="true" varName="body">
+                <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7b26</con2:id>
+                <con3:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con3:location>
+                <con3:expr>
+                  <con2:xqueryText>$body/get:getCarteraResponse</con2:xqueryText>
+                </con3:expr>
+              </con3:replace>
+            </con1:responseTransform>
           </con1:route>
         </con:actions>
       </con:route-node>
