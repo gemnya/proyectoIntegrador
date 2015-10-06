@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.globallogic.com.ar/getCartera" targetNamespace="http://www.globallogic.com.ar/getCartera">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.globallogic.com.ar/getCarteraI" targetNamespace="http://www.globallogic.com.ar/getCarteraI">
 	<wsdl:types>
-		<xs:schema targetNamespace="http://www.globallogic.com.ar/getCartera" elementFormDefault="qualified">
-			<xs:include schemaLocation="../XSD/getCarterasPorId.xsd"/>
+		<xs:schema targetNamespace="http://www.globallogic.com.ar/getCarteraI" elementFormDefault="qualified">
+			<xs:include schemaLocation="../XSD/getCarteraInterfaz.xsd"/>
 		</xs:schema>
 	</wsdl:types>
 	<wsdl:message name="getCarteraRequest">
@@ -31,7 +31,7 @@
 	</wsdl:binding>
 	<wsdl:service name="getCarteraService">
 		<wsdl:port name="getCarteraPort" binding="tns:getCarteraBinding">
-			<soap:address location="http://localhost:8080/"/>
+			<soap:address location="http://localhost:7001/"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
