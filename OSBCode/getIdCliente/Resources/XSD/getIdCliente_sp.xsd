@@ -10,7 +10,7 @@
    <element name="OutputParameters">
       <complexType>
          <sequence>
-            <element name="GETIDCLIENTE" type="decimal" db:index="0" db:type="NUMBER" minOccurs="0" nillable="true"/>
+            <element name="GETIDCLIENTE" type="int" db:index="0" db:type="NUMBER" minOccurs="0" nillable="true"/>
          </sequence>
       </complexType>
    </element>

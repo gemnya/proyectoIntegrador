@@ -125,7 +125,9 @@
     </con:pipeline>
     <con:pipeline type="request" name="getIdCliente_request">
       <con:stage name="getIdCliServiceCall">
-        <con:context/>
+        <con:context>
+          <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCartera" prefix="get"/>
+        </con:context>
         <con:actions>
           <con1:wsCallout>
             <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f2e</con2:id>
@@ -141,9 +143,9 @@
                 <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7f80</con2:id>
                 <con1:expr>
                   <con2:xqueryTransform>
-                    <con2:resource ref="getCartera/Resources/XQ/paraGetIdCliente"/>
+                    <con2:resource ref="getCartera/Resources/XQ/toGetIdCliente"/>
                     <con2:param name="getCarteraRequest1">
-                      <con2:path>$body/getCarteraRequest</con2:path>
+                      <con2:path>$body/*:getCarteraRequest</con2:path>
                     </con2:param>
                   </con2:xqueryTransform>
                 </con1:expr>
@@ -200,7 +202,7 @@
                 </con1:location>
                 <con1:expr>
                   <con2:xqueryTransform>
-                    <con2:resource ref="getCartera/Resources/XQ/paraGetPolizaPorId"/>
+                    <con2:resource ref="getCartera/Resources/XQ/toGetPoliza"/>
                     <con2:param name="outputParameters1">
                       <con2:path>$varRes</con2:path>
                     </con2:param>
@@ -216,7 +218,7 @@
                 </con1:location>
                 <con1:expr>
                   <con2:xqueryTransform>
-                    <con2:resource ref="getCartera/Resources/XQ/outPolizas"/>
+                    <con2:resource ref="getCartera/Resources/XQ/outPolizasII"/>
                     <con2:param name="outputParameters1">
                       <con2:path>$body/*</con2:path>
                     </con2:param>
