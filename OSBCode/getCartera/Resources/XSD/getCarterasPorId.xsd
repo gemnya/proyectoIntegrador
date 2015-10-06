@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.globallogic.com.ar/getCartera" targetNamespace="http://www.globallogic.com.ar/getCartera"
+elementFormDefault="qualified" attributeFormDefault="unqualified">
 				<xs:element name="getCarteraRequest">
 					<xs:complexType>
 						<xs:sequence>
