@@ -115,15 +115,15 @@
             </con2:expr>
           </con2:assign>
           <con4:log>
-            <con1:id>_ActionId-2063948251144010985--6be69420.1503d35bbcf.-7f96</con1:id>
+            <con1:id>_ActionId-5995637802062522937-3fb68d5d.1503e6c1398.-7e22</con1:id>
             <con4:logLevel>debug</con4:logLevel>
             <con4:expr>
               <con1:xqueryText>$ezer</con1:xqueryText>
             </con4:expr>
-            <con4:message>&lt;&lt; MACANA EN EL PROYECTO DE EZE >></con4:message>
+            <con4:message>&lt;&lt; ERROR EZE >></con4:message>
           </con4:log>
           <con1:reply isError="true">
-            <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7faf</con1:id>
+            <con1:id>_ActionId-5995637802062522937-3fb68d5d.1503e6c1398.-7dfd</con1:id>
           </con1:reply>
         </con3:actions>
       </con3:stage>
