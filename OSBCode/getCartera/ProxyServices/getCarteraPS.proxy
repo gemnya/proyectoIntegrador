@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con6="http://www.bea.com/wli/sb/stages/logging/config">
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:request type="XML">
@@ -32,7 +32,7 @@
   </ser:endpointConfig>
   <ser:router errorHandler="_onErrorHandler-7916558450474920689--da9f0f.150392f370b.-7d4d">
     <con:pipeline type="request" name="ValidationCartera_request">
-      <con:stage name="ValIn">
+      <con:stage name="ValCarteraIn">
         <con:context/>
         <con:actions>
           <con1:validate>
@@ -48,7 +48,7 @@
       </con:stage>
     </con:pipeline>
     <con:pipeline type="response" name="ValidationCartera_response">
-      <con:stage name="ValOut">
+      <con:stage name="ValCarteraOut">
         <con:context/>
         <con:actions>
           <con1:validate>
@@ -63,8 +63,8 @@
         </con:actions>
       </con:stage>
     </con:pipeline>
-    <con:pipeline type="request" name="Log_request">
-      <con:stage name="LogIn">
+    <con:pipeline type="request" name="LogCartera_request">
+      <con:stage name="LogCarteraIn">
         <con:context/>
         <con:actions>
           <con5:route>
@@ -93,8 +93,8 @@
         </con:actions>
       </con:stage>
     </con:pipeline>
-    <con:pipeline type="response" name="Log_response">
-      <con:stage name="LogOut">
+    <con:pipeline type="response" name="LogCartera_response">
+      <con:stage name="LogCarteraOut">
         <con:context/>
         <con:actions>
           <con5:route>
@@ -156,9 +156,17 @@
     </con:pipeline>
     <con:pipeline type="response" name="getIdCliente_response"/>
     <con:pipeline type="error" name="_onErrorHandler-7916558450474920689--da9f0f.150392f370b.-7d4d">
-      <con:stage name="errorH">
+      <con:stage name="errorGetCartera">
         <con:context/>
         <con:actions>
+          <con6:log>
+            <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7df0</con2:id>
+            <con6:logLevel>debug</con6:logLevel>
+            <con6:expr>
+              <con2:xqueryText>$fault</con2:xqueryText>
+            </con6:expr>
+            <con6:message>&lt;&lt;ERROR GET CARTERA>></con6:message>
+          </con6:log>
           <con2:reply isError="true">
             <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d3a</con2:id>
           </con2:reply>
@@ -170,15 +178,15 @@
         <con:request>ValidationCartera_request</con:request>
         <con:response>ValidationCartera_response</con:response>
       </con:pipeline-node>
-      <con:pipeline-node name="Log">
-        <con:request>Log_request</con:request>
-        <con:response>Log_response</con:response>
+      <con:pipeline-node name="LogCartera">
+        <con:request>LogCartera_request</con:request>
+        <con:response>LogCartera_response</con:response>
       </con:pipeline-node>
       <con:pipeline-node name="getIdCliente">
         <con:request>getIdCliente_request</con:request>
         <con:response>getIdCliente_response</con:response>
       </con:pipeline-node>
-      <con:route-node name="RoutePoliza">
+      <con:route-node name="RouteToPoliza">
         <con:context/>
         <con:actions>
           <con4:route>
