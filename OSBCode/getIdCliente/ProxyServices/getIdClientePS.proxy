@@ -3,10 +3,10 @@
   <ser:coreEntry isProxy="true" isEnabled="true">
     <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
       <con:request type="XML">
-        <con3:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="InputParameters" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config"/>
+        <con5:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="InputParameters" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config"/>
       </con:request>
       <con:response type="XML">
-        <con3:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="OutputParameters" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config"/>
+        <con5:schema ref="getIdCliente/Resources/XSD/getIdCliente_sp" element="OutputParameters" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config"/>
       </con:response>
     </ser:binding>
     <ser:monitoring isEnabled="false">
