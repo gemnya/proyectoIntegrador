@@ -144,6 +144,18 @@
             </con5:expr>
             <con5:message>&lt;&lt;ERROR EN LA INTERFACE>></con5:message>
           </con5:log>
+          <con3:replace contents-only="true" varName="body">
+            <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7509</con2:id>
+            <con3:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con3:location>
+            <con3:expr>
+              <con2:xqueryText><![CDATA[<mensajeError>
+	<errorCode>{data($fault/ctx:errorCode)}</errorCode>
+	<DescripError>{data($fault/ctx:reason)}</DescripError>
+</mensajeError>]]></con2:xqueryText>
+            </con3:expr>
+          </con3:replace>
           <con2:reply isError="true">
             <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-78fb</con2:id>
           </con2:reply>
