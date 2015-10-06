@@ -33,7 +33,9 @@
   <ser:router errorHandler="_onErrorHandler-7916558450474920689--da9f0f.150392f370b.-7d4d">
     <con:pipeline type="request" name="ValidationCartera_request">
       <con:stage name="ValCarteraIn">
-        <con:context/>
+        <con:context>
+          <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCartera" prefix="get"/>
+        </con:context>
         <con:actions>
           <con1:validate>
             <con2:id>_ActionId-4955529059971842280-78fd79f4.150382b6653.-7f5b</con2:id>

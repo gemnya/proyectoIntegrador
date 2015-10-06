@@ -162,12 +162,28 @@
       <con:route-node name="RouteGetCartera">
         <con:context>
           <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCartera" prefix="get"/>
+          <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCarteraI" prefix="get1"/>
         </con:context>
         <con:actions>
           <con1:route>
             <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7dc4</con2:id>
             <con1:service ref="getCartera/ProxyServices/getCarteraPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-            <con1:outboundTransform/>
+            <con1:outboundTransform>
+              <con3:replace varName="body" contents-only="true">
+                <con2:id>_ActionId-3529935246401371746--6c818dc1.1503d5ee0a6.-7fc3</con2:id>
+                <con3:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con3:location>
+                <con3:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/pasajeIntAOrquestadorXQ"/>
+                    <con2:param name="getCarteraRequest1">
+                      <con2:path>$body/*</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con3:expr>
+              </con3:replace>
+            </con1:outboundTransform>
             <con1:responseTransform>
               <con3:replace contents-only="true" varName="body">
                 <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7b26</con2:id>
@@ -175,7 +191,12 @@
                   <con2:xpathText>.</con2:xpathText>
                 </con3:location>
                 <con3:expr>
-                  <con2:xqueryText>$body/get:getCarteraResponse</con2:xqueryText>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/regresoIntOrqXQ"/>
+                    <con2:param name="getCarteraResponse1">
+                      <con2:path>$body/*</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
                 </con3:expr>
               </con3:replace>
             </con1:responseTransform>
