@@ -224,7 +224,7 @@
                     <con5:Error xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
                       <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7cdd</con7:id>
                       <con5:errCode>ErrRouting</con5:errCode>
-                      <con5:message>|| CLIENTE NO TIENE POLIZAS ||</con5:message>
+                      <con5:message>|| CLIENTE NO TIENE POLIZAS 2||</con5:message>
                     </con5:Error>
                   </con6:actions>
                 </con6:case>
