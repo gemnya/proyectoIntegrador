@@ -63,6 +63,7 @@
             <con1:location>
               <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">./get:OutputParameters</con3:xpathText>
             </con1:location>
+            <con1:resultVarName/>
           </con1:validate>
         </con:actions>
       </con:stage>
