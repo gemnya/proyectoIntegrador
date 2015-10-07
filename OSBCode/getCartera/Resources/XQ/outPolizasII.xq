@@ -7,9 +7,11 @@ declare namespace xf = "http://tempuri.org/getCartera/Resources/XQ/outPolizasII/
 
 declare function xf:outPolizasII($outputParameters1 as element(ns1:OutputParameters))
     as element(ns0:getCarteraResponse) {
-        <ns0:getCarteraResponse>
-            <ns0:listaPoliza>{ $outputParameters1/ns1:C_POLIZA/ns1:C_POLIZA_Row[1]/@* , $outputParameters1/ns1:C_POLIZA/ns1:C_POLIZA_Row[1]/node() }</ns0:listaPoliza>
-        </ns0:getCarteraResponse>
+        for $poliza in $outputParameters1/ns1:C_POLIZA/ns1:C_POLIZA_Row
+        return
+            <ns0:getCarteraResponse>
+                <ns0:listaPoliza>{ $poliza/@* , $poliza/node() }</ns0:listaPoliza>
+            </ns0:getCarteraResponse>
 };
 
 declare variable $outputParameters1 as element(ns1:OutputParameters) external;

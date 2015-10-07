@@ -36,13 +36,15 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				<xs:element name="getCarteraResponse" >
 					<xs:complexType>
 						<xs:choice>
-							<xs:sequence>
-								<xs:element name="listaPoliza" ns:type="listaPolizas"/>
-							</xs:sequence>
-							<xs:sequence>
-								<xs:element name="ErrorCode" type="xs:string"/>
-								<xs:element name="DescripError" type="xs:string"/>
-							</xs:sequence>
+							<xs:element name="listaPoliza" ns:type="listaPolizas"/>
+							<xs:element name="Error">
+								<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ErrorCode" type="xs:string"/>
+									<xs:element name="DescripError" type="xs:string"/>
+								</xs:sequence>
+								</xs:complexType>
+							</xs:element>
 						</xs:choice>
 					</xs:complexType>
 				</xs:element>

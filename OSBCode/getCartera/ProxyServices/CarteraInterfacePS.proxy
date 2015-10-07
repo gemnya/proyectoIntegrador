@@ -144,7 +144,7 @@
             </con5:expr>
             <con5:message>&lt;&lt;ERROR EN LA INTERFACE>></con5:message>
           </con5:log>
-          <con2:reply isError="false">
+          <con2:reply isError="true">
             <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-78fb</con2:id>
           </con2:reply>
         </con:actions>

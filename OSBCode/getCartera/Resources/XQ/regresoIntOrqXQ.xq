@@ -8,7 +8,7 @@ declare namespace xf = "http://tempuri.org/getCartera/Resources/XQ/regresoIntOrq
 declare function xf:regresoIntOrqXQ($getCarteraResponse1 as element(ns1:getCarteraResponse))
     as element(ns0:getCarteraResponse) {
         <ns0:getCarteraResponse>
-            <ns0:listaPoliza>{ $getCarteraResponse1/ns1:listaPolizas/@* , $getCarteraResponse1/ns1:listaPolizas/node() }</ns0:listaPoliza>
+            <ns0:listaPoliza>{ $getCarteraResponse1/ns1:listaPoliza/@* , $getCarteraResponse1/ns1:listaPoliza/node() }</ns0:listaPoliza>
         </ns0:getCarteraResponse>
 };
 
