@@ -158,7 +158,33 @@
                 </con1:expr>
               </con1:assign>
             </con1:requestTransform>
-            <con1:responseTransform/>
+            <con1:responseTransform>
+              <con1:ifThenElse>
+                <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7da8</con2:id>
+                <con1:case>
+                  <con1:condition>
+                    <con2:xqueryText>exists($varRes/get:getCarteraResponse/get:msj/@get:error)</con2:xqueryText>
+                  </con1:condition>
+                  <con1:actions>
+                    <con1:replace contents-only="true" varName="body">
+                      <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7da7</con2:id>
+                      <con1:location>
+                        <con2:xpathText>./*</con2:xpathText>
+                      </con1:location>
+                      <con1:expr>
+                        <con2:xqueryTransform>
+                          <con2:resource ref="getCartera/Resources/XQ/errorOrquestador"/>
+                          <con2:param name="anyType1">
+                            <con2:path>$body/*</con2:path>
+                          </con2:param>
+                        </con2:xqueryTransform>
+                      </con1:expr>
+                    </con1:replace>
+                  </con1:actions>
+                </con1:case>
+                <con1:default/>
+              </con1:ifThenElse>
+            </con1:responseTransform>
           </con1:wsCallout>
         </con:actions>
       </con:stage>
@@ -196,7 +222,9 @@
         <con:response>getIdCliente_response</con:response>
       </con:pipeline-node>
       <con:route-node name="RouteToPoliza">
-        <con:context/>
+        <con:context>
+          <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCartera" prefix="get"/>
+        </con:context>
         <con:actions>
           <con4:route>
             <con2:id>_ActionId-976018547701914862--1e28a868.15038927d4c.-7fcc</con2:id>
@@ -219,7 +247,7 @@
             </con4:outboundTransform>
             <con4:responseTransform>
               <con1:replace varName="body" contents-only="true">
-                <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7da7</con2:id>
+                <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d9d</con2:id>
                 <con1:location>
                   <con2:xpathText>.</con2:xpathText>
                 </con1:location>
@@ -233,7 +261,7 @@
                 </con1:expr>
               </con1:replace>
               <con1:replace varName="body" contents-only="true">
-                <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7e15</con2:id>
+                <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d9f</con2:id>
                 <con1:location>
                   <con2:xpathText>.</con2:xpathText>
                 </con1:location>
