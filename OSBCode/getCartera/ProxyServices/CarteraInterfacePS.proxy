@@ -136,8 +136,36 @@
       <con:stage name="ErrorInterface">
         <con:context/>
         <con:actions>
+          <con3:ifThenElse>
+            <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d26</con2:id>
+            <con3:case>
+              <con3:condition>
+                <con2:xqueryText>data($fault/ctx:errorCode) = 'EZE-003'</con2:xqueryText>
+              </con3:condition>
+              <con3:actions>
+                <con3:replace varName="body" contents-only="true">
+                  <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d20</con2:id>
+                  <con3:location>
+                    <con2:xpathText>.</con2:xpathText>
+                  </con3:location>
+                  <con3:expr>
+                    <con2:xqueryTransform>
+                      <con2:resource ref="getCartera/Resources/XQ/errorInterface"/>
+                      <con2:param name="errorCode">
+                        <con2:path>data($fault/ctx:errorCode)</con2:path>
+                      </con2:param>
+                      <con2:param name="errorDescript">
+                        <con2:path>data($fault/ctx:reason)</con2:path>
+                      </con2:param>
+                    </con2:xqueryTransform>
+                  </con3:expr>
+                </con3:replace>
+              </con3:actions>
+            </con3:case>
+            <con3:default/>
+          </con3:ifThenElse>
           <con5:log>
-            <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7914</con2:id>
+            <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d1e</con2:id>
             <con5:logLevel>debug</con5:logLevel>
             <con5:expr>
               <con2:xqueryText>$body</con2:xqueryText>
@@ -145,7 +173,7 @@
             <con5:message>&lt;&lt;ERROR EN LA INTERFACE>></con5:message>
           </con5:log>
           <con2:reply isError="false">
-            <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-78fb</con2:id>
+            <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d1c</con2:id>
           </con2:reply>
         </con:actions>
       </con:stage>
@@ -159,23 +187,6 @@
             <con3:errCode>EZE-003</con3:errCode>
             <con3:message>FALLO VALIDACION INTERFACE</con3:message>
           </con3:Error>
-          <con3:replace varName="body" contents-only="true">
-            <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d65</con2:id>
-            <con3:location>
-              <con2:xpathText>.</con2:xpathText>
-            </con3:location>
-            <con3:expr>
-              <con2:xqueryTransform>
-                <con2:resource ref="getCartera/Resources/XQ/errorInterface"/>
-                <con2:param name="errorCode">
-                  <con2:path>data($fault/ctx:errorCode)</con2:path>
-                </con2:param>
-                <con2:param name="errorDescript">
-                  <con2:path>data($fault/ctx:reason)</con2:path>
-                </con2:param>
-              </con2:xqueryTransform>
-            </con3:expr>
-          </con3:replace>
         </con:actions>
       </con:stage>
     </con:pipeline>
