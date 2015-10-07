@@ -129,6 +129,9 @@
       <con:stage name="getIdCliServiceCall">
         <con:context>
           <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCartera" prefix="get"/>
+          <con3:variable name="response" path="$response" asChild="false">
+            <con3:schema ref="getCartera/Resources/XSD/getCarterasPorId" element="getCarteraResponse"/>
+          </con3:variable>
         </con:context>
         <con:actions>
           <con1:wsCallout>
@@ -153,7 +156,31 @@
                 </con1:expr>
               </con1:assign>
             </con1:requestTransform>
-            <con1:responseTransform/>
+            <con1:responseTransform>
+              <con1:ifThenElse>
+                <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7f75</con2:id>
+                <con1:case>
+                  <con1:condition>
+                    <con2:xqueryText>data($varRes/error) = '|| ERROR CODIGO: EZE004'</con2:xqueryText>
+                  </con1:condition>
+                  <con1:actions>
+                    <con1:replace varName="body" contents-only="true">
+                      <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7f28</con2:id>
+                      <con1:location>
+                        <con2:xpathText>.</con2:xpathText>
+                      </con1:location>
+                      <con1:expr>
+                        <con2:xqueryText>$varRes</con2:xqueryText>
+                      </con1:expr>
+                    </con1:replace>
+                    <con2:reply isError="false">
+                      <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7f62</con2:id>
+                    </con2:reply>
+                  </con1:actions>
+                </con1:case>
+                <con1:default/>
+              </con1:ifThenElse>
+            </con1:responseTransform>
           </con1:wsCallout>
         </con:actions>
       </con:stage>
@@ -167,11 +194,11 @@
             <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7df0</con2:id>
             <con6:logLevel>debug</con6:logLevel>
             <con6:expr>
-              <con2:xqueryText>$fault</con2:xqueryText>
+              <con2:xqueryText>$body</con2:xqueryText>
             </con6:expr>
             <con6:message>&lt;&lt;ERROR GET CARTERA>></con6:message>
           </con6:log>
-          <con2:reply isError="true">
+          <con2:reply isError="false">
             <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d3a</con2:id>
           </con2:reply>
         </con:actions>
