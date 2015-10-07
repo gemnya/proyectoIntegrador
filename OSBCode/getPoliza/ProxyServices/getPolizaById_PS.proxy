@@ -25,16 +25,10 @@
     </ser:pipeline-alerting>
   </ser:coreEntry>
   <ser:endpointConfig>
-    <tran:provider-id>http</tran:provider-id>
+    <tran:provider-id>local</tran:provider-id>
     <tran:inbound>true</tran:inbound>
-    <tran:URI>
-      <env:value>/getPoliza/ProxyServices/getPolizaById_PS</env:value>
-    </tran:URI>
     <tran:inbound-properties/>
-    <tran:all-headers>false</tran:all-headers>
-    <tran:provider-specific>
-      <http:inbound-properties/>
-    </tran:provider-specific>
+    <tran:all-headers>true</tran:all-headers>
   </ser:endpointConfig>
   <ser:router errorHandler="_onErrorHandler-9169231484009489756--3998c841.15038102edf.-7d7d">
     <con:pipeline type="request" name="Validate_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
