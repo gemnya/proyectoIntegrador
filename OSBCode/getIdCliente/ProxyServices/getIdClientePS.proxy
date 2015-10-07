@@ -105,25 +105,34 @@
         <con3:context/>
         <con3:actions>
           <con2:assign varName="ezer">
-            <con1:id>_ActionId-8566339968747923399--74a0e916.1503ea51ce6.-7ff7</con1:id>
+            <con1:id>_ActionId-6004664243231361382-1a232f31.15042634e7c.-7f3a</con1:id>
             <con2:expr>
               <con1:xqueryText><![CDATA[<msj>
 	<error>{concat('|| ERROR CODIGO: ', data($fault/*:errorCode)) }</error>
 	<razonerror>{data($fault/*:reason)}</razonerror>
-	<cuerpo>{$body}</cuerpo>
+	
 </msj>]]></con1:xqueryText>
             </con2:expr>
           </con2:assign>
+          <con2:replace varName="body" contents-only="true">
+            <con1:id>_ActionId-6004664243231361382-1a232f31.15042634e7c.-7f38</con1:id>
+            <con2:location>
+              <con1:xpathText>.</con1:xpathText>
+            </con2:location>
+            <con2:expr>
+              <con1:xqueryText>$ezer</con1:xqueryText>
+            </con2:expr>
+          </con2:replace>
           <con4:log>
-            <con1:id>_ActionId-8566339968747923399--74a0e916.1503ea51ce6.-7ff5</con1:id>
+            <con1:id>_ActionId-6004664243231361382-1a232f31.15042634e7c.-7f36</con1:id>
             <con4:logLevel>debug</con4:logLevel>
             <con4:expr>
               <con1:xqueryText>$ezer</con1:xqueryText>
             </con4:expr>
-            <con4:message>&lt;&lt; NO EXISTE EL REGISTOR / ERROR RUTEANDO >></con4:message>
+            <con4:message>&lt;&lt; ERROR EN GETIDCLIENTEPROXY >></con4:message>
           </con4:log>
           <con1:reply isError="true">
-            <con1:id>_ActionId-8566339968747923399--74a0e916.1503ea51ce6.-7ff3</con1:id>
+            <con1:id>_ActionId-6004664243231361382-1a232f31.15042634e7c.-7f34</con1:id>
           </con1:reply>
         </con3:actions>
       </con3:stage>
@@ -146,7 +155,7 @@
         <con3:actions>
           <con2:Error>
             <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7f12</con1:id>
-            <con2:errCode>ERROR002</con2:errCode>
+            <con2:errCode>EZE002</con2:errCode>
             <con2:message>|| ERROR VALIDACION SALIDA ||</con2:message>
           </con2:Error>
         </con3:actions>
@@ -158,7 +167,7 @@
         <con3:actions>
           <con2:Error>
             <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7ed3</con1:id>
-            <con2:errCode>ERROR003</con2:errCode>
+            <con2:errCode>EZE003</con2:errCode>
             <con2:message>|| ERROR LOGEANDO ||</con2:message>
           </con2:Error>
         </con3:actions>
@@ -170,7 +179,7 @@
         <con3:actions>
           <con2:Error>
             <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7eb5</con1:id>
-            <con2:errCode>ERROR004</con2:errCode>
+            <con2:errCode>EZE004</con2:errCode>
             <con2:message>|| ERROR RUTEANDO ||</con2:message>
           </con2:Error>
         </con3:actions>
