@@ -163,9 +163,17 @@
                 <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7da8</con2:id>
                 <con1:case>
                   <con1:condition>
-                    <con2:xqueryText>exists($varRes/get:getCarteraResponse/get:msj/@get:error)</con2:xqueryText>
+                    <con2:xqueryText>exists($varRes/error)</con2:xqueryText>
                   </con1:condition>
                   <con1:actions>
+                    <con6:log>
+                      <con2:id>_ActionId-1868885087920173984--3695d8ee.15042e81cef.-7fe0</con2:id>
+                      <con6:logLevel>debug</con6:logLevel>
+                      <con6:expr>
+                        <con2:xqueryText>$varRes</con2:xqueryText>
+                      </con6:expr>
+                      <con6:message>&lt;&lt;ANTES DEL REPLACE>></con6:message>
+                    </con6:log>
                     <con1:replace contents-only="true" varName="body">
                       <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7da7</con2:id>
                       <con1:location>
@@ -175,15 +183,40 @@
                         <con2:xqueryTransform>
                           <con2:resource ref="getCartera/Resources/XQ/errorOrquestador"/>
                           <con2:param name="anyType1">
-                            <con2:path>$body/*</con2:path>
+                            <con2:path>$varRes/*</con2:path>
                           </con2:param>
                         </con2:xqueryTransform>
                       </con1:expr>
                     </con1:replace>
+                    <con6:log>
+                      <con2:id>_ActionId-1868885087920173984--3695d8ee.15042e81cef.-7fc8</con2:id>
+                      <con6:logLevel>debug</con6:logLevel>
+                      <con6:expr>
+                        <con2:xqueryText>$body</con2:xqueryText>
+                      </con6:expr>
+                      <con6:message>&lt;&lt;DESPUES DEL REPLACE >></con6:message>
+                    </con6:log>
                   </con1:actions>
                 </con1:case>
-                <con1:default/>
+                <con1:default>
+                  <con6:log>
+                    <con2:id>_ActionId-1868885087920173984--3695d8ee.15042e81cef.-7fb9</con2:id>
+                    <con6:logLevel>debug</con6:logLevel>
+                    <con6:expr>
+                      <con2:xqueryText>$varRes</con2:xqueryText>
+                    </con6:expr>
+                    <con6:message>&lt;&lt; SALIDA POR ELSE >></con6:message>
+                  </con6:log>
+                </con1:default>
               </con1:ifThenElse>
+              <con6:log>
+                <con2:id>_ActionId-1868885087920173984--3695d8ee.15042e81cef.-7fa3</con2:id>
+                <con6:logLevel>debug</con6:logLevel>
+                <con6:expr>
+                  <con2:xqueryText>$varRes</con2:xqueryText>
+                </con6:expr>
+                <con6:message>&lt;&lt;DESPUES DEL IF>></con6:message>
+              </con6:log>
             </con1:responseTransform>
           </con1:wsCallout>
         </con:actions>
