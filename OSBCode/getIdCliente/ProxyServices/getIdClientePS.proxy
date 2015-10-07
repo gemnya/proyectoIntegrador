@@ -121,7 +121,15 @@
               <con1:xpathText>.</con1:xpathText>
             </con2:location>
             <con2:expr>
-              <con1:xqueryText>$ezer</con1:xqueryText>
+              <con1:xqueryTransform>
+                <con1:resource ref="getIdCliente/Resources/XQUERY/errorDeCliente"/>
+                <con1:param name="DescripError">
+                  <con1:path>data($fault/ctx:reason)</con1:path>
+                </con1:param>
+                <con1:param name="errorCode">
+                  <con1:path>data($fault/ctx:errorCode)</con1:path>
+                </con1:param>
+              </con1:xqueryTransform>
             </con2:expr>
           </con2:replace>
           <con4:log>
@@ -181,7 +189,7 @@
           <con2:Error>
             <con1:id>_ActionId-8721057426787227720-32f22db0.15039930221.-7eb5</con1:id>
             <con2:errCode>EZE004</con2:errCode>
-            <con2:message>|| ERROR RUTEANDO ||</con2:message>
+            <con2:message>|| NO EXISTE CLIENTE ||</con2:message>
           </con2:Error>
         </con3:actions>
       </con3:stage>

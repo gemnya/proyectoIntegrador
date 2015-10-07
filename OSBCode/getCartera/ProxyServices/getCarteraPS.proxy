@@ -163,7 +163,7 @@
                 <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7da8</con2:id>
                 <con1:case>
                   <con1:condition>
-                    <con2:xqueryText>exists($varRes/error)</con2:xqueryText>
+                    <con2:xqueryText>exists($varRes/*:Error)</con2:xqueryText>
                   </con1:condition>
                   <con1:actions>
                     <con6:log>
@@ -181,9 +181,12 @@
                       </con1:location>
                       <con1:expr>
                         <con2:xqueryTransform>
-                          <con2:resource ref="getCartera/Resources/XQ/errorOrquestador"/>
-                          <con2:param name="anyType1">
-                            <con2:path>$varRes/*</con2:path>
+                          <con2:resource ref="getIdCliente/Resources/XQUERY/errorDeCliente"/>
+                          <con2:param name="DescripError">
+                            <con2:path>data($varRes/*:Error/get:DescripError)</con2:path>
+                          </con2:param>
+                          <con2:param name="errorCode">
+                            <con2:path>data($varRes/*:Error/get:ErrorCode)</con2:path>
                           </con2:param>
                         </con2:xqueryTransform>
                       </con1:expr>
@@ -235,7 +238,7 @@
             </con6:expr>
             <con6:message>&lt;&lt;ERROR GET CARTERA>></con6:message>
           </con6:log>
-          <con2:reply isError="true">
+          <con2:reply isError="false">
             <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d3a</con2:id>
           </con2:reply>
         </con:actions>
