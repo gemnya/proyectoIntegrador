@@ -173,8 +173,8 @@
         <con:actions>
           <con3:Error>
             <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d80</con2:id>
-            <con3:errCode>HDP-003</con3:errCode>
-            <con3:message>Fallo la validacion de entrada de la interface</con3:message>
+            <con3:errCode>EZE-003</con3:errCode>
+            <con3:message>Fallo la validacion de entrada a la interface</con3:message>
           </con3:Error>
         </con:actions>
       </con:stage>
