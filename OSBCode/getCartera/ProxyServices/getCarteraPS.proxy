@@ -282,34 +282,67 @@
               </con1:replace>
             </con4:outboundTransform>
             <con4:responseTransform>
-              <con1:replace varName="body" contents-only="true">
-                <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d9d</con2:id>
-                <con1:location>
-                  <con2:xpathText>.</con2:xpathText>
-                </con1:location>
-                <con1:expr>
-                  <con2:xqueryTransform>
-                    <con2:resource ref="getCartera/Resources/XQ/PrimeroTRANSFORMAR"/>
-                    <con2:param name="outputParameters1">
-                      <con2:path>$body/*</con2:path>
-                    </con2:param>
-                  </con2:xqueryTransform>
-                </con1:expr>
-              </con1:replace>
-              <con1:replace varName="body" contents-only="true">
-                <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d9f</con2:id>
-                <con1:location>
-                  <con2:xpathText>.</con2:xpathText>
-                </con1:location>
-                <con1:expr>
-                  <con2:xqueryTransform>
-                    <con2:resource ref="getCartera/Resources/XQ/SegundaTrans"/>
-                    <con2:param name="listaPolizas1">
-                      <con2:path>$body/*</con2:path>
-                    </con2:param>
-                  </con2:xqueryTransform>
-                </con1:expr>
-              </con1:replace>
+              <con7:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config">
+                <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c1b</con8:id>
+                <con7:case>
+                  <con7:condition>
+                    <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">count($body/get:OutputParameters/get:C_POLIZA/get:C_POLIZA_Row) = 0</con8:xqueryText>
+                  </con7:condition>
+                  <con7:actions>
+                    <con4:log>
+                      <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c1a</con8:id>
+                      <con4:logLevel>debug</con4:logLevel>
+                      <con4:expr>
+                        <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">$body</con8:xqueryText>
+                      </con4:expr>
+                      <con4:message>&lt;&lt;if POLIZA>></con4:message>
+                    </con4:log>
+                    <con5:Error xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
+                      <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c19</con8:id>
+                      <con5:errCode>ErrRouting</con5:errCode>
+                      <con5:message>|| CLIENTE NO TIENE POLIZAS ||</con5:message>
+                    </con5:Error>
+                  </con7:actions>
+                </con7:case>
+                <con7:default>
+                  <con4:log>
+                    <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c18</con8:id>
+                    <con4:logLevel>debug</con4:logLevel>
+                    <con4:expr>
+                      <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">$body</con8:xqueryText>
+                    </con4:expr>
+                    <con4:message>&lt;&lt;ELSE POLIZA>></con4:message>
+                  </con4:log>
+                  <con1:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7c16</con2:id>
+                    <con1:location>
+                      <con2:xpathText>.</con2:xpathText>
+                    </con1:location>
+                    <con1:expr>
+                      <con2:xqueryTransform>
+                        <con2:resource ref="getCartera/Resources/XQ/PrimeroTRANSFORMAR"/>
+                        <con2:param name="outputParameters1">
+                          <con2:path>$body/*</con2:path>
+                        </con2:param>
+                      </con2:xqueryTransform>
+                    </con1:expr>
+                  </con1:replace>
+                  <con1:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                    <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7c14</con2:id>
+                    <con1:location>
+                      <con2:xpathText>.</con2:xpathText>
+                    </con1:location>
+                    <con1:expr>
+                      <con2:xqueryTransform>
+                        <con2:resource ref="getCartera/Resources/XQ/SegundaTrans"/>
+                        <con2:param name="listaPolizas1">
+                          <con2:path>$body/*</con2:path>
+                        </con2:param>
+                      </con2:xqueryTransform>
+                    </con1:expr>
+                  </con1:replace>
+                </con7:default>
+              </con7:ifThenElse>
             </con4:responseTransform>
           </con4:route>
         </con:actions>

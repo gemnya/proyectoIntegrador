@@ -119,6 +119,23 @@
 </mensajeErr>]]></con:xqueryText>
             </con1:expr>
           </con1:assign>
+          <con1:replace contents-only="true" varName="body">
+            <con:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7d0b</con:id>
+            <con1:location>
+              <con:xpathText>.</con:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con:xqueryTransform>
+                <con:resource ref="getIdCliente/Resources/XQUERY/errorDeCliente"/>
+                <con:param name="DescripError">
+                  <con:path>data($fault/ctx:reason)</con:path>
+                </con:param>
+                <con:param name="errorCode">
+                  <con:path>data($fault/ctx:errorCode)</con:path>
+                </con:param>
+              </con:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
           <con4:log>
             <con:id>_ActionId-9169231484009489756--3998c841.15038102edf.-7d54</con:id>
             <con4:logLevel>debug</con4:logLevel>
@@ -127,7 +144,7 @@
             </con4:expr>
             <con4:message>&lt;&lt; ERROR LOG:  getPolizaById >></con4:message>
           </con4:log>
-          <con:reply isError="true">
+          <con:reply isError="false">
             <con:id>_ActionId-9169231484009489756--3998c841.15038102edf.-7cd8</con:id>
           </con:reply>
         </con3:actions>
@@ -169,18 +186,6 @@
         </con3:actions>
       </con3:stage>
     </con3:pipeline>
-    <con3:pipeline type="error" name="_onErrorHandler-9169231484009489756--3998c841.15038102edf.-7c93">
-      <con3:stage name="ErrRouting">
-        <con3:context/>
-        <con3:actions>
-          <con5:Error xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
-            <con6:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7c91</con6:id>
-            <con5:errCode>ErrRouting</con5:errCode>
-            <con5:message>|| ERROR en el Routing al Servicio ||</con5:message>
-          </con5:Error>
-        </con3:actions>
-      </con3:stage>
-    </con3:pipeline>
     <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:pipeline-node name="Validate">
         <con:request>Validate_request</con:request>
@@ -190,15 +195,51 @@
         <con:request>PipelinePairNode2_request</con:request>
         <con:response>PipelinePairNode2_response</con:response>
       </con:pipeline-node>
-      <con:route-node name="RouteTo_getIdClientBS" error-handler="_onErrorHandler-9169231484009489756--3998c841.15038102edf.-7c93">
-        <con:context/>
+      <con:route-node name="RouteTo_getIdClientBS">
+        <con:context>
+          <con6:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get" xmlns:con6="http://www.bea.com/wli/sb/stages/config"/>
+        </con:context>
         <con:actions>
           <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-9169231484009489756--3998c841.15038102edf.-7f4c</con2:id>
             <con1:service ref="getPoliza/BusinessService/getPolizaById_db_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:operation>getPolizaById</con1:operation>
             <con1:outboundTransform/>
-            <con1:responseTransform/>
+            <con1:responseTransform>
+              <con6:ifThenElse xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config">
+                <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7ce3</con7:id>
+                <con6:case>
+                  <con6:condition>
+                    <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">count($body/get:OutputParameters/get:C_POLIZA/get:C_POLIZA_Row) = 0</con7:xqueryText>
+                  </con6:condition>
+                  <con6:actions>
+                    <con4:log>
+                      <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c90</con7:id>
+                      <con4:logLevel>debug</con4:logLevel>
+                      <con4:expr>
+                        <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">$body</con7:xqueryText>
+                      </con4:expr>
+                      <con4:message>&lt;&lt;if POLIZA>></con4:message>
+                    </con4:log>
+                    <con5:Error xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
+                      <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7cdd</con7:id>
+                      <con5:errCode>ErrRouting</con5:errCode>
+                      <con5:message>|| CLIENTE NO TIENE POLIZAS ||</con5:message>
+                    </con5:Error>
+                  </con6:actions>
+                </con6:case>
+                <con6:default>
+                  <con4:log>
+                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7ca7</con7:id>
+                    <con4:logLevel>debug</con4:logLevel>
+                    <con4:expr>
+                      <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">$body</con7:xqueryText>
+                    </con4:expr>
+                    <con4:message>&lt;&lt;ELSE POLIZA>></con4:message>
+                  </con4:log>
+                </con6:default>
+              </con6:ifThenElse>
+            </con1:responseTransform>
           </con1:route>
         </con:actions>
       </con:route-node>
