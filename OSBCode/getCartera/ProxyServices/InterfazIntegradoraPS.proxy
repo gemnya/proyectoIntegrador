@@ -275,8 +275,11 @@
             <con1:service ref="getCartera/BusinessServices/AutomotorBS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con1:operation>getCarteraOperation</con1:operation>
             <con1:outboundTransform>
-              <con4:assign varName="body" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
-                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-7a24</con5:id>
+              <con4:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-78fe</con5:id>
+                <con4:location>
+                  <con5:xpathText xmlns:con5="http://www.bea.com/wli/sb/stages/config">.</con5:xpathText>
+                </con4:location>
                 <con4:expr>
                   <con5:xqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
                     <con5:resource ref="getCartera/Resources/XQ/reqAuto"/>
@@ -285,7 +288,7 @@
                     </con5:param>
                   </con5:xqueryTransform>
                 </con4:expr>
-              </con4:assign>
+              </con4:replace>
             </con1:outboundTransform>
             <con1:responseTransform>
               <con4:assign varName="BodyAuto" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
