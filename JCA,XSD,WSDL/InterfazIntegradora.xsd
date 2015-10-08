@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://www.globallogic.com.ar/getCarteraI" targetNamespace="http://www.globallogic.com.ar/getCarteraI" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:element name="getCarteraRequest">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://www.globallogic.com.ar/interfazIntegradora" targetNamespace="http://www.globallogic.com.ar/interfazIntegradora" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="getIntegradoraRequest">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="tipoDoc" type="xs:string"/>
@@ -8,6 +8,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	
 	
 	<xs:element name="listaPolizas">
 		<xs:complexType>
@@ -32,7 +33,6 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
 	<xs:element name="plantillaRespuestaAuto">
 		<xs:complexType>
 			<xs:choice>
@@ -49,6 +49,7 @@
 		</xs:complexType>
 	</xs:element>
 	
+	
 	<xs:complexType name="PolizaHeader">
 		<xs:sequence>
 			<xs:element name="idPoliza" type="xs:long"/>
@@ -60,26 +61,23 @@
 			<xs:element name="premio" type="xs:decimal"/>
 		</xs:sequence>
 	</xs:complexType>
-	
 	<xs:simpleType name="Vigente">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Si"/>
 			<xs:enumeration value="No"/>
 		</xs:restriction>
 	</xs:simpleType>
-	
 	<xs:complexType name="RespuestaError">
 		<xs:sequence>
 			<xs:element name="codigo" type="xs:string"/>
 			<xs:element name="descripcion" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
-		
 	<xs:element name="plantillaRespuestaHogar">
 		<xs:complexType>
 			<xs:choice>
-					<xs:element name="polizas" ns:type="PolizaHeader" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="resultadoError" ns:type="RespuestaError"/>
+				<xs:element name="polizas" minOccurs="0" maxOccurs="unbounded" ns:type="PolizaHeader"/>
+				<xs:element name="resultadoError" ns:type="RespuestaError"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -97,7 +95,7 @@
 		<xs:restriction base="xs:string">
 			<xs:pattern value="(.*)"/>
 		</xs:restriction>
-	</xs:simpleType>	
+	</xs:simpleType>
 	
 	<xs:element name="plantillaRespuestaART">
 		<xs:complexType>
@@ -125,11 +123,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
-	
-	
-	
-	<xs:element name="getCarteraResponse">
+	<xs:element name="getIntegradoraResponse">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="listaPolizaAuto" ns:type="plantillaRespuestaAuto"/>
