@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+  <ser:coreEntry isProxy="true" isEnabled="true">
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:wsdl ref="getCartera/Resources/WSDL/InterfazIntegradoraWSDL"/>
+      <con:port>
+        <con:name>getIntegradoraPort</con:name>
+        <con:namespace>http://www.globallogic.com.ar/interfazIntegradora</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/getCartera/ProxyServices/InterfazIntegradoraPS</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router>
+    <con:pipeline type="request" name="ValidacionIntegradora_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="ValIntegraIn">
+        <con:context/>
+        <con:actions>
+          <con3:validate xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7d87</con1:id>
+            <con3:schema ref="getCartera/Resources/XSD/InterfazIntegradora"/>
+            <con3:schemaElement xmlns:int="http://www.globallogic.com.ar/interfazIntegradora">int:getIntegradoraRequest</con3:schemaElement>
+            <con3:varName>body</con3:varName>
+            <con3:location>
+              <con1:xpathText>.</con1:xpathText>
+            </con3:location>
+          </con3:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="ValidacionIntegradora_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="ValIntegraOut">
+        <con:context/>
+        <con:actions>
+          <con3:validate xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7d74</con1:id>
+            <con3:schema ref="getCartera/Resources/XSD/InterfazIntegradora"/>
+            <con3:schemaElement xmlns:int="http://www.globallogic.com.ar/interfazIntegradora">int:getIntegradoraResponse</con3:schemaElement>
+            <con3:varName>body</con3:varName>
+            <con3:location>
+              <con1:xpathText>.</con1:xpathText>
+            </con3:location>
+          </con3:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="LogIntegrador_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="LogInIntegrador">
+        <con:context/>
+        <con:actions>
+          <con2:route>
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7db6</con1:id>
+            <con2:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:outboundTransform>
+              <con1:replace contents-only="true" varName="body" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con6="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-7ae4</con7:id>
+                <con1:location>
+                  <con2:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
+                    <con2:resource ref="LoggerManager/Resources/XQ/PasajeLOGXQ"/>
+                    <con2:param name="anyType1">
+                      <con2:path>$body</con2:path>
+                    </con2:param>
+                    <con2:param name="string1">
+                      <con2:path>"INTEGRADORA LOG IN"</con2:path>
+                    </con2:param>
+                  </con7:xqueryTransform>
+                </con1:expr>
+              </con1:replace>
+            </con2:outboundTransform>
+          </con2:route>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="LogIntegrador_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="LogOutIntegrador">
+        <con:context/>
+        <con:actions>
+          <con2:route>
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7d9d</con1:id>
+            <con2:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:outboundTransform>
+              <con1:replace contents-only="true" varName="body" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con6="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-7aab</con7:id>
+                <con1:location>
+                  <con2:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
+                    <con2:resource ref="LoggerManager/Resources/XQ/PasajeLOGXQ"/>
+                    <con2:param name="anyType1">
+                      <con2:path>$body</con2:path>
+                    </con2:param>
+                    <con2:param name="string1">
+                      <con2:path>"INTEGRADORA LOG OUT"</con2:path>
+                    </con2:param>
+                  </con7:xqueryTransform>
+                </con1:expr>
+              </con1:replace>
+            </con2:outboundTransform>
+          </con2:route>
+        </con:actions>
+      </con:stage>
+      <con:stage name="stage12">
+        <con:context/>
+        <con:actions>
+          <con2:route>
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7b1d</con1:id>
+            <con2:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:outboundTransform/>
+          </con2:route>
+        </con:actions>
+      </con:stage>
+      <con:stage name="stage11">
+        <con:context/>
+        <con:actions>
+          <con2:route>
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7b1f</con1:id>
+            <con2:service ref="LoggerManager/PS/LoggerManagerPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:outboundTransform/>
+          </con2:route>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="ServiceART_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="ServiceInArt">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.globallogic.com.ar/interfazIntegradora" prefix="int"/>
+        </con:context>
+        <con:actions>
+          <con3:wsCallout xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7dcc</con1:id>
+            <con3:service xsi:type="ref:BusinessServiceRef" ref="getCartera/BusinessServices/ArtBS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con3:operation>getCartera</con3:operation>
+            <con3:request>
+              <con3:body>$reqART</con3:body>
+            </con3:request>
+            <con3:response>
+              <con3:body>resART</con3:body>
+            </con3:response>
+            <con3:requestTransform>
+              <con3:assign varName="reqART">
+                <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7a57</con1:id>
+                <con3:expr>
+                  <con1:xqueryTransform>
+                    <con1:resource ref="getCartera/Resources/XQ/reqArt"/>
+                    <con1:param name="getIntegradoraRequest1">
+                      <con1:path>$body/*:getIntegradoraRequest</con1:path>
+                    </con1:param>
+                  </con1:xqueryTransform>
+                </con3:expr>
+              </con3:assign>
+            </con3:requestTransform>
+            <con3:responseTransform>
+              <con3:assign varName="bodyArt">
+                <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7a0d</con1:id>
+                <con3:expr>
+                  <con1:xqueryText>$resART</con1:xqueryText>
+                </con3:expr>
+              </con3:assign>
+            </con3:responseTransform>
+          </con3:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="ServiceART_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con:pipeline type="request" name="ServiceHogar_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="ServiceInHogar">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.globallogic.com.ar/interfazIntegradora" prefix="int"/>
+        </con:context>
+        <con:actions>
+          <con3:wsCallout xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7de4</con1:id>
+            <con3:service xsi:type="ref:BusinessServiceRef" ref="getCartera/BusinessServices/HogarBS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con3:operation>obtenerCarteraDeCliente</con3:operation>
+            <con3:request>
+              <con3:body>$reqHogar</con3:body>
+            </con3:request>
+            <con3:response>
+              <con3:body>resHogar</con3:body>
+            </con3:response>
+            <con3:requestTransform>
+              <con3:assign varName="reqHogar">
+                <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7a37</con1:id>
+                <con3:expr>
+                  <con1:xqueryTransform>
+                    <con1:resource ref="getCartera/Resources/XQ/reqHogar"/>
+                    <con1:param name="getIntegradoraRequest1">
+                      <con1:path>$body/*:getIntegradoraRequest</con1:path>
+                    </con1:param>
+                  </con1:xqueryTransform>
+                </con3:expr>
+              </con3:assign>
+            </con3:requestTransform>
+            <con3:responseTransform>
+              <con3:assign varName="bodyHogar">
+                <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-79d4</con1:id>
+                <con3:expr>
+                  <con1:xqueryText>$resHogar</con1:xqueryText>
+                </con3:expr>
+              </con3:assign>
+            </con3:responseTransform>
+          </con3:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="ServiceHogar_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con3:pipeline type="request" name="EnsamblajePIPELINE_request"/>
+    <con3:pipeline type="response" name="EnsamblajePIPELINE_response">
+      <con3:stage name="EnsamBody">
+        <con3:context/>
+        <con3:actions>
+          <con:replace contents-only="true" varName="body">
+            <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7919</con1:id>
+            <con:location>
+              <con1:xpathText>.</con1:xpathText>
+            </con:location>
+            <con:expr>
+              <con1:xqueryTransform>
+                <con1:resource ref="getCartera/Resources/XQ/TransformTotal"/>
+                <con1:param name="listaPolizaAuto1">
+                  <con1:path>$BodyAuto</con1:path>
+                </con1:param>
+                <con1:param name="plantillaRespuestaHogar1">
+                  <con1:path>$bodyHogar</con1:path>
+                </con1:param>
+                <con1:param name="plantillaRespuestaART1">
+                  <con1:path>$bodyArt</con1:path>
+                </con1:param>
+              </con1:xqueryTransform>
+            </con:expr>
+          </con:replace>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
+    <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="ValidacionIntegradora">
+        <con:request>ValidacionIntegradora_request</con:request>
+        <con:response>ValidacionIntegradora_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="LogIntegrador">
+        <con:request>LogIntegrador_request</con:request>
+        <con:response>LogIntegrador_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="EnsamblajePIPELINE">
+        <con:request>EnsamblajePIPELINE_request</con:request>
+        <con:response>EnsamblajePIPELINE_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="ServiceART">
+        <con:request>ServiceART_request</con:request>
+        <con:response>ServiceART_response</con:response>
+      </con:pipeline-node>
+      <con:pipeline-node name="ServiceHogar">
+        <con:request>ServiceHogar_request</con:request>
+        <con:response>ServiceHogar_response</con:response>
+      </con:pipeline-node>
+      <con:route-node name="RoutAutomotor">
+        <con:context>
+          <con1:varNsDecl namespace="http://www.globallogic.com.ar/interfazIntegradora" prefix="int"/>
+        </con:context>
+        <con:actions>
+          <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-7dfb</con2:id>
+            <con1:service ref="getCartera/BusinessServices/AutomotorBS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:operation>getCarteraOperation</con1:operation>
+            <con1:outboundTransform>
+              <con4:assign varName="body" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-7a24</con5:id>
+                <con4:expr>
+                  <con5:xqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                    <con5:resource ref="getCartera/Resources/XQ/reqAuto"/>
+                    <con5:param name="getIntegradoraRequest1">
+                      <con5:path>$body/*:getIntegradoraRequest</con5:path>
+                    </con5:param>
+                  </con5:xqueryTransform>
+                </con4:expr>
+              </con4:assign>
+            </con1:outboundTransform>
+            <con1:responseTransform>
+              <con4:assign varName="BodyAuto" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-7933</con5:id>
+                <con4:expr>
+                  <con5:xqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                    <con5:resource ref="getCartera/Resources/XQ/TransformGeneralAuto"/>
+                    <con5:param name="getCarteraResponse1">
+                      <con5:path>$body</con5:path>
+                    </con5:param>
+                  </con5:xqueryTransform>
+                </con4:expr>
+              </con4:assign>
+            </con1:responseTransform>
+          </con1:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>
