@@ -230,6 +230,23 @@
       <con:stage name="errorGetCartera">
         <con:context/>
         <con:actions>
+          <con1:replace contents-only="true" varName="body">
+            <con2:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7d60</con2:id>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="getIdCliente/Resources/XQUERY/errorDeCliente"/>
+                <con2:param name="DescripError">
+                  <con2:path>data($fault/ctx:reason)</con2:path>
+                </con2:param>
+                <con2:param name="errorCode">
+                  <con2:path>data($fault/ctx:errorCode)</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
           <con6:log>
             <con2:id>_ActionId-7378703260851567887-e8d5fb1.1503d2ac8ee.-7df0</con2:id>
             <con6:logLevel>debug</con6:logLevel>
@@ -241,6 +258,18 @@
           <con2:reply isError="false">
             <con2:id>_ActionId-7916558450474920689--da9f0f.150392f370b.-7d3a</con2:id>
           </con2:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-2318169279252063618-10913bd1.150488c0bc9.-7d8f">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:Error>
+            <con2:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7d77</con2:id>
+            <con1:errCode>HDP-007</con1:errCode>
+            <con1:message>&lt;&lt;Error Orquestador Poliza>></con1:message>
+          </con1:Error>
         </con:actions>
       </con:stage>
     </con:pipeline>
@@ -257,9 +286,13 @@
         <con:request>getIdCliente_request</con:request>
         <con:response>getIdCliente_response</con:response>
       </con:pipeline-node>
-      <con:route-node name="RouteToPoliza">
+      <con:route-node name="RouteToPoliza" error-handler="_onErrorHandler-2318169279252063618-10913bd1.150488c0bc9.-7d8f">
         <con:context>
           <con2:varNsDecl namespace="http://www.globallogic.com.ar/getCartera" prefix="get"/>
+          <con2:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getPolizaById" prefix="get1"/>
+          <con3:variable name="responseDB" path="$responseDB" asChild="false">
+            <con3:schema ref="getPoliza/Resources/XSD/getPolizaById_sp" element="OutputParameters"/>
+          </con3:variable>
         </con:context>
         <con:actions>
           <con4:route>
@@ -282,67 +315,34 @@
               </con1:replace>
             </con4:outboundTransform>
             <con4:responseTransform>
-              <con7:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config">
-                <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c1b</con8:id>
-                <con7:case>
-                  <con7:condition>
-                    <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">count($body/get:OutputParameters/get:C_POLIZA/get:C_POLIZA_Row) = 0</con8:xqueryText>
-                  </con7:condition>
-                  <con7:actions>
-                    <con4:log>
-                      <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c1a</con8:id>
-                      <con4:logLevel>debug</con4:logLevel>
-                      <con4:expr>
-                        <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">$body</con8:xqueryText>
-                      </con4:expr>
-                      <con4:message>&lt;&lt;if POLIZA>></con4:message>
-                    </con4:log>
-                    <con5:Error xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
-                      <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c19</con8:id>
-                      <con5:errCode>ErrRouting</con5:errCode>
-                      <con5:message>|| CLIENTE NO TIENE POLIZAS ||</con5:message>
-                    </con5:Error>
-                  </con7:actions>
-                </con7:case>
-                <con7:default>
-                  <con4:log>
-                    <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7c18</con8:id>
-                    <con4:logLevel>debug</con4:logLevel>
-                    <con4:expr>
-                      <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">$body</con8:xqueryText>
-                    </con4:expr>
-                    <con4:message>&lt;&lt;ELSE POLIZA>></con4:message>
-                  </con4:log>
-                  <con1:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
-                    <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7c16</con2:id>
-                    <con1:location>
-                      <con2:xpathText>.</con2:xpathText>
-                    </con1:location>
-                    <con1:expr>
-                      <con2:xqueryTransform>
-                        <con2:resource ref="getCartera/Resources/XQ/PrimeroTRANSFORMAR"/>
-                        <con2:param name="outputParameters1">
-                          <con2:path>$body/*</con2:path>
-                        </con2:param>
-                      </con2:xqueryTransform>
-                    </con1:expr>
-                  </con1:replace>
-                  <con1:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
-                    <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7c14</con2:id>
-                    <con1:location>
-                      <con2:xpathText>.</con2:xpathText>
-                    </con1:location>
-                    <con1:expr>
-                      <con2:xqueryTransform>
-                        <con2:resource ref="getCartera/Resources/XQ/SegundaTrans"/>
-                        <con2:param name="listaPolizas1">
-                          <con2:path>$body/*</con2:path>
-                        </con2:param>
-                      </con2:xqueryTransform>
-                    </con1:expr>
-                  </con1:replace>
-                </con7:default>
-              </con7:ifThenElse>
+              <con7:replace varName="body" contents-only="true" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config">
+                <con2:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7d90</con2:id>
+                <con1:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/PrimeroTRANSFORMAR"/>
+                    <con2:param name="outputParameters1">
+                      <con2:path>$body/*</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con7:replace>
+              <con7:replace varName="body" contents-only="true" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config">
+                <con2:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7d92</con2:id>
+                <con1:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con1:location>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/SegundaTrans"/>
+                    <con2:param name="listaPolizas1">
+                      <con2:path>$body/*</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con7:replace>
             </con4:responseTransform>
           </con4:route>
         </con:actions>

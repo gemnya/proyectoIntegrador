@@ -225,48 +225,28 @@
               </con3:replace>
             </con1:outboundTransform>
             <con1:responseTransform>
-              <con7:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con6="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config">
-                <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7bc1</con8:id>
-                <con7:case>
-                  <con7:condition>
-                    <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">count($body/get:OutputParameters/get:C_POLIZA/get:C_POLIZA_Row) = 0</con8:xqueryText>
-                  </con7:condition>
-                  <con7:actions>
-                    <con6:log>
-                      <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7bc0</con8:id>
-                      <con6:logLevel>debug</con6:logLevel>
-                      <con6:expr>
-                        <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">$body</con8:xqueryText>
-                      </con6:expr>
-                      <con6:message>&lt;&lt;if POLIZA>></con6:message>
-                    </con6:log>
-                  </con7:actions>
-                </con7:case>
-                <con7:default>
-                  <con6:log>
-                    <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-7763314748501931430-2f281419.15042820ed1.-7bbe</con8:id>
-                    <con6:logLevel>debug</con6:logLevel>
-                    <con6:expr>
-                      <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">$body</con8:xqueryText>
-                    </con6:expr>
-                    <con6:message>&lt;&lt;ELSE POLIZA>></con6:message>
-                  </con6:log>
-                  <con3:replace contents-only="true" varName="body" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config">
-                    <con2:id>_ActionId-7763314748501931430-2f281419.15042820ed1.-7bba</con2:id>
-                    <con3:location>
-                      <con2:xpathText>.</con2:xpathText>
-                    </con3:location>
-                    <con3:expr>
-                      <con2:xqueryTransform>
-                        <con2:resource ref="getCartera/Resources/XQ/regresoIntOrqXQ"/>
-                        <con2:param name="getCarteraResponse1">
-                          <con2:path>$body/*</con2:path>
-                        </con2:param>
-                      </con2:xqueryTransform>
-                    </con3:expr>
-                  </con3:replace>
-                </con7:default>
-              </con7:ifThenElse>
+              <con7:replace contents-only="true" varName="body" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con6="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7dce</con2:id>
+                <con7:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con7:location>
+                <con7:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="getCartera/Resources/XQ/regresoIntOrqXQ"/>
+                    <con2:param name="getCarteraResponse1">
+                      <con2:path>$body/*</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con7:expr>
+              </con7:replace>
+              <con5:log>
+                <con2:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7dbd</con2:id>
+                <con5:logLevel>debug</con5:logLevel>
+                <con5:expr>
+                  <con2:xqueryText>$body</con2:xqueryText>
+                </con5:expr>
+                <con5:message>&lt;&lt;Route Orquestador>></con5:message>
+              </con5:log>
             </con1:responseTransform>
           </con1:route>
         </con:actions>

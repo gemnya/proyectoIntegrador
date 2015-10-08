@@ -228,14 +228,14 @@
             </con:location>
             <con:expr>
               <con1:xqueryTransform>
-                <con1:resource ref="getCartera/Resources/XQ/transformacionCompleta"/>
-                <con1:param name="plantillaRespuestaHogar1">
-                  <con1:path>$bodyHogar</con1:path>
-                </con1:param>
-                <con1:param name="plantillaRespuestaART1">
+                <con1:resource ref="getCartera/Resources/XQ/tcXQ"/>
+                <con1:param name="polizasResponseInterface1">
                   <con1:path>$bodyArt</con1:path>
                 </con1:param>
-                <con1:param name="plantillaRespuestaAuto1">
+                <con1:param name="obtenerCarteraResponse1">
+                  <con1:path>$bodyHogar</con1:path>
+                </con1:param>
+                <con1:param name="getCarteraResponse1">
                   <con1:path>$body/*</con1:path>
                 </con1:param>
               </con1:xqueryTransform>
@@ -290,7 +290,7 @@
                 </con4:expr>
               </con4:replace>
             </con1:outboundTransform>
-            <con1:responseTransform></con1:responseTransform>
+            <con1:responseTransform/>
           </con1:route>
         </con:actions>
       </con:route-node>

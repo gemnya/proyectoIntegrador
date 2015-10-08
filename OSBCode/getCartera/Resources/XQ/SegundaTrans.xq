@@ -7,7 +7,13 @@ declare namespace xf = "http://tempuri.org/getCartera/Resources/XQ/SegundaTrans/
 declare function xf:SegundaTrans($listaPolizas1 as element(ns0:listaPolizas))
     as element(ns0:getCarteraResponse) {
         <ns0:getCarteraResponse>
-            <ns0:listaPoliza>{ $listaPolizas1/@* , $listaPolizas1/node() }</ns0:listaPoliza>
+            <ns0:listaPolizas>
+                {
+                    for $poliza in $listaPolizas1/ns0:poliza
+                    return
+                        <ns0:poliza>{ $poliza/@* , $poliza/node() }</ns0:poliza>
+                }
+            </ns0:listaPolizas>
         </ns0:getCarteraResponse>
 };
 
