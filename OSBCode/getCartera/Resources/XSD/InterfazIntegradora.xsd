@@ -36,7 +36,7 @@
 	<xs:element name="plantillaRespuestaAuto">
 		<xs:complexType>
 			<xs:choice>
-				<xs:element name="listaPoliza" ns:type="listaPolizas"/>
+				<xs:element ref="ns:listaPolizas"/>
 				<xs:element name="Error">
 					<xs:complexType>
 						<xs:sequence>

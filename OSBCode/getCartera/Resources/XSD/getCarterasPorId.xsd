@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.globallogic.com.ar/getCartera"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.globallogic.com.ar/getCartera" xmlns:ns="http://www.globallogic.com.ar/getCartera"
 elementFormDefault="qualified" attributeFormDefault="unqualified">
 				<xs:element name="getCarteraRequest">
 					<xs:complexType>
@@ -36,7 +36,7 @@ elementFormDefault="qualified" attributeFormDefault="unqualified">
 				<xs:element name="getCarteraResponse" >
 					<xs:complexType>
 						<xs:choice>
-							<xs:element name="listaPoliza" ns:type="listaPolizas"/>
+							<xs:element ref="ns:listaPolizas"/>
 							<xs:element name="Error">
 								<xs:complexType>
 								<xs:sequence>

@@ -8,7 +8,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="tipoDocumento" type="dic:TipoDocumento" minOccurs="1" maxOccurs="1" />
-				<xs:element name="nroDocumento" type="xs:int" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="nroDocumento" type="xs:long" minOccurs="1" maxOccurs="1"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

@@ -228,15 +228,15 @@
             </con:location>
             <con:expr>
               <con1:xqueryTransform>
-                <con1:resource ref="getCartera/Resources/XQ/TransformTotal"/>
-                <con1:param name="listaPolizaAuto1">
-                  <con1:path>$BodyAuto</con1:path>
-                </con1:param>
+                <con1:resource ref="getCartera/Resources/XQ/transformacionCompleta"/>
                 <con1:param name="plantillaRespuestaHogar1">
                   <con1:path>$bodyHogar</con1:path>
                 </con1:param>
                 <con1:param name="plantillaRespuestaART1">
                   <con1:path>$bodyArt</con1:path>
+                </con1:param>
+                <con1:param name="plantillaRespuestaAuto1">
+                  <con1:path>$body/*</con1:path>
                 </con1:param>
               </con1:xqueryTransform>
             </con:expr>
@@ -290,19 +290,7 @@
                 </con4:expr>
               </con4:replace>
             </con1:outboundTransform>
-            <con1:responseTransform>
-              <con4:assign varName="BodyAuto" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
-                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-3284217169309199150-6fda54e9.150479cba67.-7933</con5:id>
-                <con4:expr>
-                  <con5:xqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
-                    <con5:resource ref="getCartera/Resources/XQ/TransformGeneralAuto"/>
-                    <con5:param name="getCarteraResponse1">
-                      <con5:path>$body</con5:path>
-                    </con5:param>
-                  </con5:xqueryTransform>
-                </con4:expr>
-              </con4:assign>
-            </con1:responseTransform>
+            <con1:responseTransform></con1:responseTransform>
           </con1:route>
         </con:actions>
       </con:route-node>
