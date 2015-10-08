@@ -42,7 +42,9 @@
   <ser:router>
     <con:pipeline type="request" name="ValidacionIntegradora_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:stage name="ValIntegraIn">
-        <con:context/>
+        <con:context>
+          <con1:varNsDecl namespace="http://www.globallogic.com.ar/interfazIntegradora" prefix="int"/>
+        </con:context>
         <con:actions>
           <con3:validate xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
             <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7d87</con1:id>
@@ -50,7 +52,7 @@
             <con3:schemaElement xmlns:int="http://www.globallogic.com.ar/interfazIntegradora">int:getIntegradoraRequest</con3:schemaElement>
             <con3:varName>body</con3:varName>
             <con3:location>
-              <con1:xpathText>./*</con1:xpathText>
+              <con1:xpathText>./int:getIntegradoraRequest</con1:xpathText>
             </con3:location>
           </con3:validate>
         </con:actions>
@@ -58,7 +60,9 @@
     </con:pipeline>
     <con:pipeline type="response" name="ValidacionIntegradora_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:stage name="ValIntegraOut">
-        <con:context/>
+        <con:context>
+          <con1:varNsDecl namespace="http://www.globallogic.com.ar/interfazIntegradora" prefix="int"/>
+        </con:context>
         <con:actions>
           <con3:validate xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
             <con1:id>_ActionId-3284217169309199150-6fda54e9.150479cba67.-7d74</con1:id>
@@ -66,7 +70,7 @@
             <con3:schemaElement xmlns:int="http://www.globallogic.com.ar/interfazIntegradora">int:getIntegradoraResponse</con3:schemaElement>
             <con3:varName>body</con3:varName>
             <con3:location>
-              <con1:xpathText>./*</con1:xpathText>
+              <con1:xpathText>./int:getIntegradoraResponse</con1:xpathText>
             </con3:location>
           </con3:validate>
         </con:actions>
@@ -236,7 +240,7 @@
                   <con1:path>$bodyHogar</con1:path>
                 </con1:param>
                 <con1:param name="getCarteraResponse1">
-                  <con1:path>$body/*</con1:path>
+                  <con1:path>$bodyAuto</con1:path>
                 </con1:param>
               </con1:xqueryTransform>
             </con:expr>
@@ -290,7 +294,14 @@
                 </con4:expr>
               </con4:replace>
             </con1:outboundTransform>
-            <con1:responseTransform/>
+            <con1:responseTransform>
+              <con4:assign varName="bodyAuto" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7d51</con5:id>
+                <con4:expr>
+                  <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$body/*</con5:xqueryText>
+                </con4:expr>
+              </con4:assign>
+            </con1:responseTransform>
           </con1:route>
         </con:actions>
       </con:route-node>

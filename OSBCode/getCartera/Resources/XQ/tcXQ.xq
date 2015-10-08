@@ -16,15 +16,27 @@ declare function xf:tcXQ($getCarteraResponse1 as element(ns1:getCarteraResponse)
     $polizasResponseInterface1 as element(ns0:PolizasResponseInterface))
     as element(ns5:getIntegradoraResponse) {
         <ns5:getIntegradoraResponse>
-            <ns5:carteraauto>
-                <ns1:getCarteraResponse>{ $getCarteraResponse1/@* , $getCarteraResponse1/node() }</ns1:getCarteraResponse>
-            </ns5:carteraauto>
-            <ns5:carteraArt>
-                <ns0:PolizasResponseInterface>{ $polizasResponseInterface1/@* , $polizasResponseInterface1/node() }</ns0:PolizasResponseInterface>
-            </ns5:carteraArt>
-            <ns5:carteraHogar>
-                <ns4:ObtenerCarteraResponse>{ $obtenerCarteraResponse1/@* , $obtenerCarteraResponse1/node() }</ns4:ObtenerCarteraResponse>
-            </ns5:carteraHogar>
+            {
+                let $getCarteraResponse := $getCarteraResponse1
+                return
+                    <ns5:carteraauto>
+                        <ns1:getCarteraResponse>{ $getCarteraResponse/@* , $getCarteraResponse/node() }</ns1:getCarteraResponse>
+                    </ns5:carteraauto>
+            }
+            {
+                let $PolizasResponseInterface := $polizasResponseInterface1
+                return
+                    <ns5:carteraArt>
+                        <ns0:PolizasResponseInterface>{ $PolizasResponseInterface/@* , $PolizasResponseInterface/node() }</ns0:PolizasResponseInterface>
+                    </ns5:carteraArt>
+            }
+            {
+                let $ObtenerCarteraResponse := $obtenerCarteraResponse1
+                return
+                    <ns5:carteraHogar>
+                        <ns4:ObtenerCarteraResponse>{ $ObtenerCarteraResponse/@* , $ObtenerCarteraResponse/node() }</ns4:ObtenerCarteraResponse>
+                    </ns5:carteraHogar>
+            }
         </ns5:getIntegradoraResponse>
 };
 
