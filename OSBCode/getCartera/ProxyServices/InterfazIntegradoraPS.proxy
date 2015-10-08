@@ -50,7 +50,7 @@
             <con3:schemaElement xmlns:int="http://www.globallogic.com.ar/interfazIntegradora">int:getIntegradoraRequest</con3:schemaElement>
             <con3:varName>body</con3:varName>
             <con3:location>
-              <con1:xpathText>.</con1:xpathText>
+              <con1:xpathText>./*</con1:xpathText>
             </con3:location>
           </con3:validate>
         </con:actions>
@@ -66,7 +66,7 @@
             <con3:schemaElement xmlns:int="http://www.globallogic.com.ar/interfazIntegradora">int:getIntegradoraResponse</con3:schemaElement>
             <con3:varName>body</con3:varName>
             <con3:location>
-              <con1:xpathText>.</con1:xpathText>
+              <con1:xpathText>./*</con1:xpathText>
             </con3:location>
           </con3:validate>
         </con:actions>
