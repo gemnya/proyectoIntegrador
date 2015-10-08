@@ -39,8 +39,8 @@
       <http:inbound-properties/>
     </tran:provider-specific>
   </ser:endpointConfig>
-  <ser:router>
-    <con:pipeline type="request" name="ValidacionIntegradora_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+  <ser:router errorHandler="_onErrorHandler-2318169279252063618-10913bd1.150488c0bc9.-7d2b">
+    <con:pipeline type="request" name="ValidacionIntegradora_request" errorHandler="_onErrorHandler-2318169279252063618-10913bd1.150488c0bc9.-7d50" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
       <con:stage name="ValIntegraIn">
         <con:context>
           <con1:varNsDecl namespace="http://www.globallogic.com.ar/interfazIntegradora" prefix="int"/>
@@ -245,6 +245,45 @@
               </con1:xqueryTransform>
             </con:expr>
           </con:replace>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
+    <con3:pipeline type="error" name="_onErrorHandler-2318169279252063618-10913bd1.150488c0bc9.-7d50">
+      <con3:stage name="stage1">
+        <con3:context/>
+        <con3:actions>
+          <con:Error>
+            <con1:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7d2c</con1:id>
+            <con:errCode>GEM-989</con:errCode>
+            <con:message>&lt;&lt;Datos No Válidos>></con:message>
+          </con:Error>
+        </con3:actions>
+      </con3:stage>
+    </con3:pipeline>
+    <con3:pipeline type="error" name="_onErrorHandler-2318169279252063618-10913bd1.150488c0bc9.-7d2b">
+      <con3:stage name="stage1">
+        <con3:context/>
+        <con3:actions>
+          <con:replace contents-only="true" varName="body">
+            <con1:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7d16</con1:id>
+            <con:location>
+              <con1:xpathText>./*</con1:xpathText>
+            </con:location>
+            <con:expr>
+              <con1:xqueryTransform>
+                <con1:resource ref="getCartera/Resources/XQ/errorInterface"/>
+                <con1:param name="errorCode">
+                  <con1:path>data($fault/ctx:errorCode)</con1:path>
+                </con1:param>
+                <con1:param name="errorDescript">
+                  <con1:path>data($fault/ctx:reason)</con1:path>
+                </con1:param>
+              </con1:xqueryTransform>
+            </con:expr>
+          </con:replace>
+          <con1:reply>
+            <con1:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7cfd</con1:id>
+          </con1:reply>
         </con3:actions>
       </con3:stage>
     </con3:pipeline>
