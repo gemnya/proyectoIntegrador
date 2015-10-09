@@ -3,7 +3,7 @@
 	<element name="Email" type="tns:EmailType"/>
 	<complexType name="EmailType">
 		<sequence>
-			<element name="to" type="xsd:string"/>
+			<element name="to" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
 			<element name="subject" type="xsd:string"/>
 			<element name="content" type="xsd:string"/>
 		</sequence>

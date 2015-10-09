@@ -281,6 +281,16 @@
               </con1:xqueryTransform>
             </con:expr>
           </con:replace>
+          <con2:route>
+            <con1:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7d34</con1:id>
+            <con2:service ref="EmailProject/ProxyServices/EmailPS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:outboundTransform>
+              <con:replace contents-only="true">
+                <con1:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7d27</con1:id>
+                <con:expr/>
+              </con:replace>
+            </con2:outboundTransform>
+          </con2:route>
           <con1:reply>
             <con1:id>_ActionId-2318169279252063618-10913bd1.150488c0bc9.-7cfd</con1:id>
           </con1:reply>

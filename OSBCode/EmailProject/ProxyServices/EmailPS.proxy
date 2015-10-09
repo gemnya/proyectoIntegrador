@@ -48,7 +48,10 @@
                 <con2:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7d90</con2:id>
                 <con4:header-set>outbound-request</con4:header-set>
                 <con4:header name="Subject" value="expression">
-                  <con2:xqueryText>data($body/ema:Email/ema:subject)</con2:xqueryText>
+                  <con2:xqueryText>$body/ema:Email/ema:subject/text()</con2:xqueryText>
+                </con4:header>
+                <con4:header name="To" value="expression">
+                  <con2:xqueryText>string-join( $body/ema:Email/ema:to/text(), ",")</con2:xqueryText>
                 </con4:header>
               </con4:transport-headers>
               <con4:replace varName="body" contents-only="true">
