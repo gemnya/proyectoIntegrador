@@ -34,10 +34,46 @@
     </tran:provider-specific>
   </ser:endpointConfig>
   <ser:router>
+    <con1:pipeline type="request" name="PipelinePairNode1_request">
+      <con1:stage name="stage1">
+        <con1:context/>
+        <con1:actions>
+          <con:wsCallout xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+            <con1:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7725</con1:id>
+            <con:service xsi:type="ref:BusinessServiceRef" ref="EmailProject/Business/getMailsSV_db" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con:operation>getMailsSV</con:operation>
+            <con:request>
+              <con:body>$varReqP</con:body>
+            </con:request>
+            <con:response>
+              <con:body>varResP</con:body>
+            </con:response>
+            <con:requestTransform>
+              <con:assign varName="varReqP">
+                <con1:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7727</con1:id>
+                <con:expr>
+                  <con1:xqueryText>&lt;get:InputParameters xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getMailsSV"/></con1:xqueryText>
+                </con:expr>
+              </con:assign>
+            </con:requestTransform>
+            <con:responseTransform/>
+          </con:wsCallout>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response"/>
     <con1:flow>
+      <con1:pipeline-node name="PipelinePairNode1">
+        <con1:request>PipelinePairNode1_request</con1:request>
+        <con1:response>PipelinePairNode1_response</con1:response>
+      </con1:pipeline-node>
       <con1:route-node name="RouteToEmailBs">
         <con1:context>
           <con2:varNsDecl namespace="http://www.globallogic.com.ar/EmailRequest" prefix="ema"/>
+          <con2:varNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/getMailsSV" prefix="get"/>
+          <con:variable name="responseDB" path="$responseDB" asChild="false">
+            <con:schema ref="EmailProject/getMailsSV_sp" element="OutputParameters"/>
+          </con:variable>
         </con1:context>
         <con1:actions>
           <con3:route>
@@ -45,17 +81,20 @@
             <con3:service ref="EmailProject/Business/EmailBSS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
             <con3:outboundTransform>
               <con4:transport-headers>
-                <con2:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7d90</con2:id>
+                <con2:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7711</con2:id>
                 <con4:header-set>outbound-request</con4:header-set>
-                <con4:header name="Subject" value="expression">
-                  <con2:xqueryText>$body/ema:Email/ema:subject/text()</con2:xqueryText>
-                </con4:header>
                 <con4:header name="To" value="expression">
-                  <con2:xqueryText>string-join( $body/ema:Email/ema:to/text(), ",")</con2:xqueryText>
+                  <con2:xqueryText>string-join( data($varResP/get:GETMAILS/get:Row/get:Column), ",")</con2:xqueryText>
+                </con4:header>
+                <con4:header name="Subject" value="expression">
+                  <con2:xqueryText>data($body/ema:Email/ema:subject)</con2:xqueryText>
                 </con4:header>
               </con4:transport-headers>
               <con4:replace varName="body" contents-only="true">
                 <con2:id>_ActionId-5300104316674057597--19ba04b7.1504c96b60a.-7d74</con2:id>
+                <con4:location>
+                  <con2:xpathText>.</con2:xpathText>
+                </con4:location>
                 <con4:expr>
                   <con2:xqueryText>data($body/ema:Email/ema:content)</con2:xqueryText>
                 </con4:expr>

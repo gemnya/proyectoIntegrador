@@ -2,9 +2,7 @@
 <xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:env="http://www.bea.com/wli/config/env" xmlns:ema="http://www.bea.com/wli/sb/transports/email">
   <ser:coreEntry isProxy="false" isEnabled="true">
     <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
-      <con:request type="XML">
-        <con1:schema ref="EmailProject/Resources/EMAIL_r" element="Email" xmlns:con1="http://www.bea.com/wli/sb/typesystem/config"/>
-      </con:request>
+      <con:request type="Text"/>
     </ser:binding>
     <ser:monitoring isEnabled="false">
       <ser:aggregationInterval>10</ser:aggregationInterval>
@@ -27,13 +25,14 @@
     <tran:provider-specific>
       <ema:use-ssl>true</ema:use-ssl>
       <ema:outbound-properties>
+        <ema:smtp-resource ref="System/SMTP Servers/EmailGem"/>
         <ema:connection-timeout>0</ema:connection-timeout>
         <ema:timeout>0</ema:timeout>
         <ema:from-address/>
         <ema:from-name/>
         <ema:reply-to-address/>
         <ema:reply-to-name/>
-        <ema:mail-session-jndiname>emailPrueba</ema:mail-session-jndiname>
+        <ema:mail-session-jndiname/>
       </ema:outbound-properties>
       <ema:request-encoding>iso-8859-1</ema:request-encoding>
     </tran:provider-specific>
