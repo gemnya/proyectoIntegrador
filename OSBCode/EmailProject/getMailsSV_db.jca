@@ -1,0 +1,14 @@
+<adapter-config name="getMailsSV" adapter="Database Adapter" wsdlLocation="getMailsSV.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/EscuelaSOA2Con" UIConnectionName="EscuelaSOA2Con" adapterRef=""/>
+  <endpoint-interaction portType="getMailsSV_ptt" operation="getMailsSV">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="ESCUELASOA2"/>
+      <property name="PackageName" value="AUTO_GRUPO"/>
+      <property name="ProcedureName" value="GETMAILS"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>
