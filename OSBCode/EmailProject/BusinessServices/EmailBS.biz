@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:env="http://www.bea.com/wli/config/env" xmlns:ema="http://www.bea.com/wli/sb/transports/email">
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:env="http://www.bea.com/wli/config/env" xmlns:ema="http://www.bea.com/wli/sb/transports/email">
   <ser:coreEntry isProxy="false" isEnabled="true">
-    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config"/>
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="XML">
+        <con1:schema ref="EmailProject/Resources/EMAIL_r" element="Email" xmlns:con1="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:request>
+    </ser:binding>
     <ser:monitoring isEnabled="false">
       <ser:aggregationInterval>10</ser:aggregationInterval>
     </ser:monitoring>
